@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="R. Noah Padgett" />
+
+<meta name="date" content="2021-08-13" />
+
+<title>Research Question 1</title>
+
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">religiousity-covid-study</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Research Question 1</h1>
+<h3 class="subtitle">Correlations among RTG and ATG</h3>
+<h4 class="author">R. Noah Padgett</h4>
+<h4 class="date">2021-08-13</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-08-16
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>religiousity-covid-study/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210724code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210724)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210724code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210724)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstronga368c61"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> a368c61 </a>
+</p>
+</div>
+<div id="strongRepositoryversionstronga368c61" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version a368c61. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    data/Boccia et al - Attachment to God Style Relates to Religiosity Measures.docx
+    Ignored:    data/COVID19 Mental Health Data_forNoah.xlsx
+    Ignored:    data/LGedits_Attachment to God Style Relates to Religiosity Measures endnote[29].docx
+    Ignored:    data/MH & COVID updated.xlsx
+    Ignored:    data/Methods.docx
+    Ignored:    data/Rates of anxiety and depression in college students before and during the pandemic.docx
+    Ignored:    data/Religiousity_Covid_Data_2021_07_24.csv
+    Ignored:    data/Research Questions.txt
+    Ignored:    data/imp_dat.RData
+
+Untracked files:
+    Untracked:  analysis/R0_Summary_Table.Rmd
+    Untracked:  analysis/R1_correlations.Rmd
+    Untracked:  analysis/R2_HADS.Rmd
+    Untracked:  analysis/R3_atg_mental_health.Rmd
+    Untracked:  analysis/R4.Rmd
+    Untracked:  analysis/R5.Rmd
+    Untracked:  analysis/data_summary_and_imputation.Rmd
+    Untracked:  code/load_packages.R
+    Untracked:  code/utility_functions.R
+    Untracked:  manuscript/
+
+Unstaged changes:
+    Modified:   .gitignore
+    Modified:   analysis/index.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<pre><code>Research Question 1:
+
+Does authoritarian vs benevolent relationship with God correlate with attachment to God style in cohort 1 and 2?</code></pre>
+<p>Read in data</p>
+<pre class="r"><code># Load imputed data
+load(&quot;data/imp_dat.RData&quot;)
+imp_dat_c1 &lt;- imputation[[1]]
+imp_dat_c2 &lt;- imputation[[2]]
+imp_dat_mids &lt;- rbind(imp_dat_c1, imp_dat_c2)
+
+mydata &lt;- readxl::read_xlsx(&quot;data/MH &amp; COVID updated.xlsx&quot;)
+
+mydata &lt;- mydata[,colnames(mydata) != &quot;filter_$&quot;]
+
+# recoding to correct for errors
+# recode all 0&#39;s for AUTH or BENE as NA
+mydata$AUTH[mydata$AUTH == 0] &lt;- NA
+mydata$BENE[mydata$BENE == 0] &lt;- NA
+
+mydata &lt;- mydata %&gt;%
+  group_by(COHORT) %&gt;%
+  mutate(
+    BENE.z = (BENE - mean(BENE, na.rm=T))/(sd(BENE, na.rm=T))
+  )
+
+myVar &lt;- c(&quot;COHORT&quot;,&quot;COVID&quot;, &quot;AUTH&quot;, &quot;BENE&quot;,&quot;BENE.z&quot;,  &quot;AGIANX&quot;, &quot;AGIAVOID&quot;, &quot;DEPR&quot;, &quot;DEPR_DIAG&quot;, &quot;ANX&quot;, &quot;ANX_DIAG&quot;, &quot;AGI_SECURITY&quot;)
+
+subdat &lt;- mydata %&gt;%
+  dplyr::select(ID, COHORT, COVID, AUTH, BENE, BENE.z, AGIANX, AGIAVOID, DEPR, DEPR_DIAG, ANX, ANX_DIAG, AGI_SECURITY) 
+subdat$flag = 0
+i &lt;- 1
+for(i in 1:nrow(subdat)){
+  subdat$flag[i] = anyNA(subdat[i,-c(1:3)])
+}
+subdat &lt;- subdat %&gt;%
+  filter(flag == 0)
+
+
+subdat$Cohort = factor(subdat$COHORT, levels=1:2, labels=c(&quot;MH-COVID&quot;, &quot;ATG&quot;))</code></pre>
+<div id="approach-1---listwise-deletion" class="section level1">
+<h1>Approach 1 - Listwise Deletion</h1>
+<p>Missing data are listwise deleted - using all cases with complete data on all variables of interest.</p>
+<pre class="r"><code>GGally::ggpairs(
+  subdat,  columns = c(4:8),
+  mapping = ggplot2::aes(colour=Cohort, alpha=0.75))</code></pre>
+<p><img src="figure/R1_correlations.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p1 &lt;- ggplot(subdat, aes(x=BENE, color=Cohort, fill=Cohort))+
+  geom_density(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()+theme(legend.position = &quot;none&quot;)
+p2 &lt;- ggplot(subdat, aes(x=Cohort, y=BENE, color=Cohort, fill=Cohort))+
+  geom_boxplot(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()
+p &lt;- p1 + p2
+p</code></pre>
+<p><img src="figure/R1_correlations.Rmd/unnamed-chunk-1-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="cohort-1-mh-covid" class="section level2">
+<h2>Cohort 1: MH-COVID</h2>
+<pre class="r"><code># Cohort 1
+pairs(~AUTH + BENE + AGIANX + AGIAVOID, data=filter(subdat, COHORT==1))</code></pre>
+<p><img src="figure/R1_correlations.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Authoritarian
+cor.test(~AUTH + AGIANX, data=filter(subdat, COHORT==1))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  AUTH and AGIANX
+t = 3, df = 263, p-value = 0.009
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.0409 0.2758
+sample estimates:
+  cor 
+0.161 </code></pre>
+<pre class="r"><code>cor.test(~AUTH + AGIAVOID, data=filter(subdat, COHORT==1))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  AUTH and AGIAVOID
+t = 5, df = 263, p-value = 2e-06
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.171 0.393
+sample estimates:
+  cor 
+0.286 </code></pre>
+<pre class="r"><code># Benevelant
+cor.test(~BENE + AGIANX, data=filter(subdat, COHORT==1))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  BENE and AGIANX
+t = 1, df = 263, p-value = 0.3
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.0618  0.1784
+sample estimates:
+   cor 
+0.0591 </code></pre>
+<pre class="r"><code>cor.test(~BENE + AGIAVOID, data=filter(subdat, COHORT==1))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  BENE and AGIAVOID
+t = -11, df = 263, p-value &lt;2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.642 -0.477
+sample estimates:
+   cor 
+-0.565 </code></pre>
+</div>
+<div id="cohort-2-atg" class="section level2">
+<h2>Cohort 2: ATG</h2>
+<pre class="r"><code># Cohort 2
+pairs(~AUTH + BENE + AGIANX + AGIAVOID, data=filter(subdat, COHORT==2))</code></pre>
+<p><img src="figure/R1_correlations.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Authoritarian
+cor.test(~AUTH + AGIANX, data=filter(subdat, COHORT==2))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  AUTH and AGIANX
+t = 2, df = 136, p-value = 0.04
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.00974 0.33382
+sample estimates:
+  cor 
+0.177 </code></pre>
+<pre class="r"><code>cor.test(~AUTH + AGIAVOID, data=filter(subdat, COHORT==2))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  AUTH and AGIAVOID
+t = 2, df = 136, p-value = 0.06
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.00701  0.31885
+sample estimates:
+ cor 
+0.16 </code></pre>
+<pre class="r"><code># Benevelant
+cor.test(~BENE + AGIANX, data=filter(subdat, COHORT==2))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  BENE and AGIANX
+t = -0.8, df = 136, p-value = 0.4
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.2338  0.0989
+sample estimates:
+    cor 
+-0.0694 </code></pre>
+<pre class="r"><code>cor.test(~BENE + AGIAVOID, data=filter(subdat, COHORT==2))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  BENE and AGIAVOID
+t = -7, df = 136, p-value = 1e-11
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.644 -0.403
+sample estimates:
+   cor 
+-0.534 </code></pre>
+</div>
+</div>
+<div id="approach-2---single-complete-imputation" class="section level1">
+<h1>Approach 2 - Single Complete Imputation</h1>
+<p>A single complete dataset is used</p>
+<pre class="r"><code>GGally::ggpairs(
+  imp_dat,  columns = c(&quot;AUTH&quot;, &quot;BENE&quot;, &quot;AGIANX&quot;, &quot;AGIAVOID&quot;),
+  mapping = ggplot2::aes(colour=Cohort, alpha=0.75))</code></pre>
+<p><img src="figure/R1_correlations.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p1 &lt;- ggplot(subdat, aes(x=BENE, color=Cohort, fill=Cohort))+
+  geom_density(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()+theme(legend.position = &quot;none&quot;)
+p2 &lt;- ggplot(subdat, aes(x=Cohort, y=BENE, color=Cohort, fill=Cohort))+
+  geom_boxplot(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()
+p &lt;- p1 + p2
+p</code></pre>
+<p><img src="figure/R1_correlations.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="cohort-1" class="section level2">
+<h2>Cohort 1</h2>
+<pre class="r"><code># Authoritarian
+cor.test(~AUTH + AGIANX, data=filter(imp_dat, COHORT==1))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  AUTH and AGIANX
+t = 3, df = 317, p-value = 0.01
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.0348 0.2500
+sample estimates:
+  cor 
+0.144 </code></pre>
+<pre class="r"><code>cor.test(~AUTH + AGIAVOID, data=filter(imp_dat, COHORT==1))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  AUTH and AGIAVOID
+t = 6, df = 317, p-value = 9e-10
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.233 0.429
+sample estimates:
+  cor 
+0.335 </code></pre>
+<pre class="r"><code># Benevelant
+cor.test(~BENE + AGIANX, data=filter(imp_dat, COHORT==1))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  BENE and AGIANX
+t = 0.2, df = 317, p-value = 0.9
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.101  0.118
+sample estimates:
+    cor 
+0.00867 </code></pre>
+<pre class="r"><code>cor.test(~BENE + AGIAVOID, data=filter(imp_dat, COHORT==1))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  BENE and AGIAVOID
+t = -10, df = 317, p-value &lt;2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.573 -0.406
+sample estimates:
+   cor 
+-0.494 </code></pre>
+</div>
+<div id="cohort-2" class="section level2">
+<h2>Cohort 2</h2>
+<pre class="r"><code># Authoritarian
+cor.test(~AUTH + AGIANX, data=filter(imp_dat, COHORT==2))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  AUTH and AGIANX
+t = 2, df = 137, p-value = 0.04
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.00986 0.33282
+sample estimates:
+  cor 
+0.176 </code></pre>
+<pre class="r"><code>cor.test(~AUTH + AGIAVOID, data=filter(imp_dat, COHORT==2))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  AUTH and AGIAVOID
+t = 2, df = 137, p-value = 0.07
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.0129  0.3124
+sample estimates:
+  cor 
+0.154 </code></pre>
+<pre class="r"><code># Benevelant
+cor.test(~BENE + AGIANX, data=filter(imp_dat, COHORT==2))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  BENE and AGIANX
+t = -0.8, df = 137, p-value = 0.4
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.2331  0.0984
+sample estimates:
+    cor 
+-0.0693 </code></pre>
+<pre class="r"><code>cor.test(~BENE + AGIAVOID, data=filter(imp_dat, COHORT==2))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  BENE and AGIAVOID
+t = -7, df = 137, p-value = 2e-11
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.639 -0.398
+sample estimates:
+   cor 
+-0.529 </code></pre>
+</div>
+</div>
+<div id="approach-3---full-imputation-method" class="section level1">
+<h1>Approach 3 - Full Imputation Method</h1>
+<div id="cohort-1-1" class="section level2">
+<h2>Cohort 1</h2>
+<pre class="r"><code>c1 &lt;- with(
+  imp_dat_c1,
+  lm(scale(AUTH)~ scale(AGIANX))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+           term m estimate    ubar        b       t dfcom    df      riv
+1   (Intercept) 5 1.67e-17 0.00310 8.43e-32 0.00310   317 315.0 3.27e-29
+2 scale(AGIANX) 5 1.07e-01 0.00311 3.71e-03 0.00756   317  10.6 1.43e+00
+    lambda     fmi
+1 3.27e-29 0.00629
+2 5.89e-01 0.64930</code></pre>
+<pre class="r"><code>summary(D1(c1))</code></pre>
+<pre><code>
+Models:
+ model                     formula
+     1 scale(AUTH) ~ scale(AGIANX)
+     2             scale(AUTH) ~ 1
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value  riv
+ 1 ~~ 2      1.51   1   4   317   0.286 1.43
+
+Number of imputations:  5   Method D1</code></pre>
+<pre class="r"><code>c1 &lt;- with(
+  imp_dat_c1,
+  lm(scale(AUTH)~ scale(AGIAVOID))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+             term m estimate    ubar        b       t dfcom  df      riv
+1     (Intercept) 5 4.69e-17 0.00270 6.97e-32 0.00270   317 315 3.09e-29
+2 scale(AGIAVOID) 5 3.72e-01 0.00271 2.18e-03 0.00533   317  15 9.66e-01
+    lambda     fmi
+1 3.09e-29 0.00629
+2 4.91e-01 0.54783</code></pre>
+<pre class="r"><code>summary(D1(c1))</code></pre>
+<pre><code>
+Models:
+ model                       formula
+     1 scale(AUTH) ~ scale(AGIAVOID)
+     2               scale(AUTH) ~ 1
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value   riv
+ 1 ~~ 2      25.9   1   4   317 0.00704 0.966
+
+Number of imputations:  5   Method D1</code></pre>
+<pre class="r"><code># Benevelant
+c1 &lt;- with(
+  imp_dat_c1,
+  lm(scale(BENE)~ scale(AGIANX))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+           term m  estimate    ubar        b       t dfcom     df      riv
+1   (Intercept) 5 -4.54e-17 0.00312 1.67e-31 0.00312   317 314.99 6.43e-29
+2 scale(AGIANX) 5  4.47e-02 0.00313 6.44e-03 0.01085   317   7.27 2.47e+00
+    lambda     fmi
+1 6.43e-29 0.00629
+2 7.11e-01 0.76763</code></pre>
+<pre class="r"><code>summary(D1(c1))</code></pre>
+<pre><code>
+Models:
+ model                     formula
+     1 scale(BENE) ~ scale(AGIANX)
+     2             scale(BENE) ~ 1
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value  riv
+ 1 ~~ 2     0.184   1   4   317    0.69 2.47
+
+Number of imputations:  5   Method D1</code></pre>
+<pre class="r"><code>c1 &lt;- with(
+  imp_dat_c1,
+  lm(scale(BENE)~ scale(AGIAVOID))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+             term m  estimate    ubar        b       t dfcom     df      riv
+1     (Intercept) 5 -6.92e-17 0.00221 2.57e-31 0.00221   317 314.99 1.40e-28
+2 scale(AGIAVOID) 5 -5.44e-01 0.00221 2.86e-03 0.00564   317   9.96 1.55e+00
+    lambda     fmi
+1 1.40e-28 0.00629
+2 6.08e-01 0.66835</code></pre>
+<pre class="r"><code>summary(D1(c1))</code></pre>
+<pre><code>
+Models:
+ model                       formula
+     1 scale(BENE) ~ scale(AGIAVOID)
+     2               scale(BENE) ~ 1
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value  riv
+ 1 ~~ 2      52.5   1   4   317 0.00193 1.55
+
+Number of imputations:  5   Method D1</code></pre>
+</div>
+<div id="cohort-2-1" class="section level2">
+<h2>Cohort 2</h2>
+<pre class="r"><code>c1 &lt;- with(
+  imp_dat_c2,
+  lm(scale(AUTH)~ scale(AGIANX))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+           term m  estimate    ubar        b       t dfcom  df      riv
+1   (Intercept) 5 -1.89e-17 0.00702 1.45e-32 0.00702   137 135 2.48e-30
+2 scale(AGIANX) 5  1.76e-01 0.00707 1.92e-07 0.00707   137 135 3.25e-05
+    lambda    fmi
+1 2.48e-30 0.0145
+2 3.25e-05 0.0145</code></pre>
+<pre class="r"><code>summary(D1(c1))</code></pre>
+<pre><code>
+Models:
+ model                     formula
+     1 scale(AUTH) ~ scale(AGIANX)
+     2             scale(AUTH) ~ 1
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value      riv
+ 1 ~~ 2      4.38   1   4   137   0.105 3.25e-05
+
+Number of imputations:  5   Method D1</code></pre>
+<pre class="r"><code>c1 &lt;- with(
+  imp_dat_c2,
+  lm(scale(AUTH)~ scale(AGIAVOID))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+             term m estimate    ubar        b       t dfcom  df      riv
+1     (Intercept) 5 1.42e-17 0.00705 1.45e-32 0.00705   137 135 2.46e-30
+2 scale(AGIAVOID) 5 1.66e-01 0.00710 5.79e-05 0.00717   137 133 9.79e-03
+    lambda    fmi
+1 2.46e-30 0.0145
+2 9.69e-03 0.0242</code></pre>
+<pre class="r"><code>summary(D1(c1))</code></pre>
+<pre><code>
+Models:
+ model                       formula
+     1 scale(AUTH) ~ scale(AGIAVOID)
+     2               scale(AUTH) ~ 1
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value     riv
+ 1 ~~ 2      3.84   1   4   137   0.122 0.00979
+
+Number of imputations:  5   Method D1</code></pre>
+<pre class="r"><code># Benevelant
+c1 &lt;- with(
+  imp_dat_c2,
+  lm(scale(BENE)~ scale(AGIANX))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+           term m  estimate    ubar        b       t dfcom  df      riv
+1   (Intercept) 5  5.54e-17 0.00721 1.05e-31 0.00721   137 135 1.74e-29
+2 scale(AGIANX) 5 -6.95e-02 0.00726 1.44e-08 0.00726   137 135 2.39e-06
+    lambda    fmi
+1 1.74e-29 0.0145
+2 2.39e-06 0.0145</code></pre>
+<pre class="r"><code>summary(D1(c1))</code></pre>
+<pre><code>
+Models:
+ model                     formula
+     1 scale(BENE) ~ scale(AGIANX)
+     2             scale(BENE) ~ 1
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value      riv
+ 1 ~~ 2     0.664   1   4   137   0.461 2.39e-06
+
+Number of imputations:  5   Method D1</code></pre>
+<pre class="r"><code>c1 &lt;- with(
+  imp_dat_c2,
+  lm(scale(BENE)~ scale(AGIAVOID))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+             term m  estimate    ubar        b       t dfcom  df      riv
+1     (Intercept) 5 -7.25e-17 0.00518 1.05e-31 0.00518   137 135 2.43e-29
+2 scale(AGIAVOID) 5 -5.34e-01 0.00521 1.03e-05 0.00523   137 135 2.37e-03
+    lambda    fmi
+1 2.43e-29 0.0145
+2 2.37e-03 0.0169</code></pre>
+<pre class="r"><code>summary(D1(c1))</code></pre>
+<pre><code>
+Models:
+ model                       formula
+     1 scale(BENE) ~ scale(AGIAVOID)
+     2               scale(BENE) ~ 1
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value     riv
+ 1 ~~ 2      54.6   1   4   137 0.00179 0.00237
+
+Number of imputations:  5   Method D1</code></pre>
+</div>
+<div id="test-difference-between-cohorts" class="section level2">
+<h2>Test Difference Between Cohorts</h2>
+<pre class="r"><code>c0 &lt;- with(imp_dat_mids, lm(scale(AUTH)~ scale(AGIANX)+I(COHORT == 1)))
+c1 &lt;- with(
+  imp_dat_mids,
+  lm(scale(AUTH)~ scale(AGIANX)*I(COHORT == 1))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+                              term m estimate    ubar        b       t dfcom
+1                      (Intercept) 5   0.1951 0.00775 0.003143 0.01152   454
+2                    scale(AGIANX) 5   0.1687 0.00473 0.000033 0.00477   454
+3               I(COHORT == 1)TRUE 5  -0.2911 0.01090 0.005261 0.01721   454
+4 scale(AGIANX):I(COHORT == 1)TRUE 5  -0.0537 0.00911 0.004125 0.01406   454
+     df     riv  lambda    fmi
+1  33.3 0.48643 0.32725 0.3643
+2 444.8 0.00838 0.00831 0.0127
+3  26.9 0.57923 0.36678 0.4091
+4  29.1 0.54320 0.35200 0.3924</code></pre>
+<pre class="r"><code>summary(D1(c1, c0))</code></pre>
+<pre><code>
+Models:
+ model                                      formula
+     1 scale(AUTH) ~ scale(AGIANX) * I(COHORT == 1)
+     2 scale(AUTH) ~ scale(AGIANX) + I(COHORT == 1)
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value   riv
+ 1 ~~ 2     0.205   1   4   454   0.674 0.543
+
+Number of imputations:  5   Method D1</code></pre>
+<pre class="r"><code>c0 &lt;- with(imp_dat_mids, lm(scale(AUTH)~ scale(AGIAVOID)+I(COHORT == 1)))
+c1 &lt;- with(
+  imp_dat_mids,
+  lm(scale(AUTH)~ scale(AGIAVOID)*I(COHORT == 1))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+                                term m estimate    ubar        b       t dfcom
+1                        (Intercept) 5    0.266 0.00635 0.002882 0.00981   454
+2                    scale(AGIAVOID) 5    0.169 0.00494 0.000114 0.00508   454
+3                 I(COHORT == 1)TRUE 5   -0.381 0.00912 0.005964 0.01628   454
+4 scale(AGIAVOID):I(COHORT == 1)TRUE 5    0.189 0.00811 0.003656 0.01250   454
+     df    riv lambda    fmi
+1  29.0 0.5445  0.353 0.3930
+2 407.3 0.0277  0.027 0.0317
+3  19.1 0.7848  0.440 0.4903
+4  29.2 0.5407  0.351 0.3912</code></pre>
+<pre class="r"><code>summary(D1(c1, c0))</code></pre>
+<pre><code>
+Models:
+ model                                        formula
+     1 scale(AUTH) ~ scale(AGIAVOID) * I(COHORT == 1)
+     2 scale(AUTH) ~ scale(AGIAVOID) + I(COHORT == 1)
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value   riv
+ 1 ~~ 2      2.87   1   4   454   0.165 0.541
+
+Number of imputations:  5   Method D1</code></pre>
+<pre class="r"><code># Benevelant
+c0 &lt;- with(imp_dat_mids, lm(scale(BENE.z)~ scale(AGIANX)+I(COHORT == 1)))
+c1 &lt;- with(
+  imp_dat_mids,
+  lm(scale(BENE.z)~ scale(AGIANX)*I(COHORT == 1))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+                              term m estimate    ubar        b       t dfcom
+1                      (Intercept) 5   0.0559 0.00818 7.63e-03 0.01734   453
+2                    scale(AGIANX) 5  -0.0556 0.00496 1.81e-05 0.00498   453
+3               I(COHORT == 1)TRUE 5  -0.0592 0.01147 1.37e-02 0.02795   453
+4 scale(AGIANX):I(COHORT == 1)TRUE 5   0.1101 0.00955 4.38e-03 0.01480   453
+     df     riv  lambda     fmi
+1  13.4 1.12052 0.52842 0.58585
+2 448.1 0.00439 0.00437 0.00879
+3  10.8 1.43631 0.58954 0.64888
+4  28.6 0.55053 0.35506 0.39587</code></pre>
+<pre class="r"><code>summary(D1(c1,c0))</code></pre>
+<pre><code>
+Models:
+ model                                        formula
+     1 scale(BENE.z) ~ scale(AGIANX) * I(COHORT == 1)
+     2 scale(BENE.z) ~ scale(AGIANX) + I(COHORT == 1)
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value   riv
+ 1 ~~ 2     0.819   1   4   453   0.417 0.551
+
+Number of imputations:  5   Method D1</code></pre>
+<pre class="r"><code>c0 &lt;- with(imp_dat_mids, lm(scale(BENE.z)~ scale(AGIAVOID)+I(COHORT == 1)))
+c1 &lt;- with(
+  imp_dat_mids,
+  lm(scale(BENE.z)~ scale(AGIAVOID)*I(COHORT == 1))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+                                term m estimate    ubar       b       t dfcom
+1                        (Intercept) 5   0.0422 0.00531 0.00774 0.01460   453
+2                    scale(AGIAVOID) 5  -0.4572 0.00415 0.00131 0.00572   453
+3                 I(COHORT == 1)TRUE 5  -0.0589 0.00761 0.01600 0.02682   453
+4 scale(AGIAVOID):I(COHORT == 1)TRUE 5  -0.0879 0.00678 0.02295 0.03432   453
+     df   riv lambda   fmi
+1  9.32 1.748  0.636 0.695
+2 45.51 0.379  0.275 0.305
+3  7.35 2.524  0.716 0.771
+4  5.81 4.061  0.802 0.847</code></pre>
+<pre class="r"><code>summary(D1(c1,c0))</code></pre>
+<pre><code>
+Models:
+ model                                          formula
+     1 scale(BENE.z) ~ scale(AGIAVOID) * I(COHORT == 1)
+     2 scale(BENE.z) ~ scale(AGIAVOID) + I(COHORT == 1)
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value  riv
+ 1 ~~ 2     0.225   1   4   453    0.66 4.06
+
+Number of imputations:  5   Method D1</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.5 (2021-03-31)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_United States.1252 
+[2] LC_CTYPE=English_United States.1252   
+[3] LC_MONETARY=English_United States.1252
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] mitools_2.4       mitml_0.4-1       naniar_0.6.0      miceadds_3.11-6  
+ [5] mice_3.13.0       car_3.0-10        carData_3.0-4     patchwork_1.1.1  
+ [9] psych_2.0.12      viridis_0.5.1     viridisLite_0.3.0 gridExtra_2.3    
+[13] xtable_1.8-4      kableExtra_1.3.4  GGally_2.1.1      MASS_7.3-53.1    
+[17] data.table_1.14.0 readxl_1.3.1      forcats_0.5.1     stringr_1.4.0    
+[21] dplyr_1.0.5       purrr_0.3.4       readr_1.4.0       tidyr_1.1.3      
+[25] tibble_3.1.0      ggplot2_3.3.3     tidyverse_1.3.0   workflowr_1.6.2  
+
+loaded via a namespace (and not attached):
+ [1] minqa_1.2.4        colorspace_2.0-0   ellipsis_0.3.1     rio_0.5.26        
+ [5] visdat_0.5.3       rprojroot_2.0.2    fs_1.5.0           rstudioapi_0.13   
+ [9] farver_2.1.0       fansi_0.4.2        lubridate_1.7.10   xml2_1.3.2        
+[13] splines_4.0.5      mnormt_2.0.2       knitr_1.31         jsonlite_1.7.2    
+[17] nloptr_1.2.2.2     broom_0.7.5        dbplyr_2.1.0       compiler_4.0.5    
+[21] httr_1.4.2         backports_1.2.1    assertthat_0.2.1   Matrix_1.3-2      
+[25] cli_2.3.1          later_1.1.0.1      htmltools_0.5.1.1  tools_4.0.5       
+[29] gtable_0.3.0       glue_1.4.2         Rcpp_1.0.7         cellranger_1.1.0  
+[33] jquerylib_0.1.3    vctrs_0.3.6        svglite_2.0.0      nlme_3.1-152      
+[37] xfun_0.21          ps_1.6.0           openxlsx_4.2.3     lme4_1.1-26       
+[41] rvest_1.0.0        lifecycle_1.0.0    statmod_1.4.35     pan_1.6           
+[45] scales_1.1.1       hms_1.0.0          promises_1.2.0.1   parallel_4.0.5    
+[49] RColorBrewer_1.1-2 yaml_2.2.1         curl_4.3           sass_0.3.1        
+[53] reshape_0.8.8      stringi_1.5.3      highr_0.8          boot_1.3-27       
+[57] zip_2.1.1          rlang_0.4.10       pkgconfig_2.0.3    systemfonts_1.0.1 
+[61] evaluate_0.14      lattice_0.20-41    labeling_0.4.2     tidyselect_1.1.0  
+[65] plyr_1.8.6         magrittr_2.0.1     R6_2.5.0           generics_0.1.0    
+[69] DBI_1.1.1          pillar_1.5.1       haven_2.3.1        foreign_0.8-81    
+[73] withr_2.4.1        survival_3.2-10    abind_1.4-5        modelr_0.1.8      
+[77] crayon_1.4.1       jomo_2.7-2         utf8_1.1.4         tmvnsim_1.0-2     
+[81] rmarkdown_2.7      grid_4.0.5         git2r_0.28.0       reprex_1.0.0      
+[85] digest_0.6.27      webshot_0.5.2      httpuv_1.5.5       munsell_0.5.0     
+[89] bslib_0.2.4       </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

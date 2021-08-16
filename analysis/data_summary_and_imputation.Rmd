@@ -1,0 +1,241 @@
+---
+title: "Data Summary"
+author: "R. Noah Padgett"
+date: "2021-08-10"
+output: html_document
+---
+
+```{r setup, include=FALSE, message=F, error=F, warning=F}
+
+source("code/load_packages.R")
+
+```
+
+Read in data
+
+```{r read-data}
+
+mydata <- readxl::read_xlsx("data/MH & COVID updated.xlsx")
+
+mydata <- mydata[,colnames(mydata) != "filter_$"]
+
+```
+
+
+Major outcomes are the measures of mental health
+
+* DEPR = depression
+* ANX = anxiety
+
+Scores on both of these measures in these ranges indicate clinically relevant levels of ANX/DEPR
+0-7 = NORMAL; 8-10 = BORDERLINE; 11-21 CLINICALLY DEPRESSED/ANXIOUS
+
+* AUTH = authoritarian
+* BENE = benevolent
+
+
+
+```{r}
+
+# recode all 0's for AUTH or BENE as NA
+mydata$AUTH[mydata$AUTH == 0] <- NA
+mydata$BENE[mydata$BENE == 0] <- NA
+
+mydata$Cohort = factor(mydata$COHORT, levels=1:2, labels=c("MH-COVID", "ATG"))
+
+mydata <- mydata %>%
+  group_by(Cohort) %>%
+  mutate(
+    BENE.z = (BENE - mean(BENE, na.rm=T))/(sd(BENE, na.rm=T))
+  )
+
+
+subdat <- mydata %>%
+  dplyr::select(ID, Cohort, COVID, AUTH, BENE, BENE.z, AGIANX, AGIAVOID, DEPR, DEPR_DIAG, ANX, ANX_DIAG, AGI_SECURITY) 
+subdat$flag = 0
+i <- 1
+for(i in 1:nrow(subdat)){
+  subdat$flag[i] = anyNA(subdat[i,-c(1:3)])
+}
+subdat <- subdat %>%
+  filter(flag == 0)
+
+```
+
+# Data Summary Statistics
+
+```{r sumstats}
+myVar <- c("AUTH", "BENE", "BENE.z", "AGIANX", "AGIAVOID", "DEPR", "DEPR_DIAG", "ANX", "ANX_DIAG", "AGI_SECURITY")
+
+s1 <- describe(mydata[, myVar])
+kable(s1, format="html", digits=2) %>%
+  kable_styling(full_width = T) %>%
+  scroll_box(height="400px")
+
+s2 <- describe(subdat[, myVar])
+kable(s2, format="html", digits=2) %>%
+  kable_styling(full_width = T) %>%
+  scroll_box(height="400px")
+
+```
+
+Summary stats by cohort
+
+```{r sumstats-2}
+
+s1 <- describeBy(mydata[, myVar],group = mydata$Cohort, mat=T)
+kable(s1, format="html", digits=2) %>%
+  kable_styling(full_width = T) %>%
+  scroll_box(height="400px")
+
+s2 <- describeBy(subdat[, myVar], group=subdat$Cohort, mat=T)
+kable(s2, format="html", digits=2) %>%
+  kable_styling(full_width = T) %>%
+  scroll_box(height="400px")
+
+```
+
+
+## Visualize to help me
+
+```{r vis}
+
+ggplot(mydata, aes(x=Cohort, y=AUTH, color=Cohort, fill=Cohort))+
+  geom_boxplot(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()
+
+ggplot(mydata, aes(x=Cohort, y=BENE, color=Cohort, fill=Cohort))+
+  geom_boxplot(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()
+
+ggplot(mydata, aes(x=Cohort, y=BENE.z, color=Cohort, fill=Cohort))+
+  geom_boxplot(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()
+
+ggplot(mydata, aes(x=Cohort, y=AGIANX, color=Cohort, fill=Cohort))+
+  geom_boxplot(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()
+
+ggplot(mydata, aes(x=Cohort, y=AGIAVOID, color=Cohort, fill=Cohort))+
+  geom_boxplot(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()
+
+
+ggplot(mydata, aes(x=Cohort, y=DEPR, color=Cohort, fill=Cohort))+
+  geom_boxplot(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()
+
+
+ggplot(mydata, aes(x=Cohort, y=ANX, color=Cohort, fill=Cohort))+
+  geom_boxplot(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()
+
+```
+
+
+# Missing Data
+
+
+```{r miss-data-1}
+
+miss.patt <- md.pattern(mydata, plot = T,rotate.names = T)
+
+kable(miss.patt, format="html") %>%
+  kable_styling(full_width = T) %>%
+  scroll_box(height=500)
+
+
+gather(mydata) %>%
+    group_by(key) %>%
+    summarize(prop_na = mean(is.na(value))) %>%
+    ggplot(mapping = aes(x = key, y = prop_na)) +
+    geom_bar(stat = "identity") +
+    scale_y_continuous(limits = c(0,1)) +
+    theme_bw() + 
+    theme(
+      legend.key = element_blank(), 
+      axis.text.x = element_text(
+                       angle = 90, 
+                       hjust = 1, vjust = .05))
+
+
+vis_miss(mydata)
+```
+
+
+## Handling missing data
+
+
+```{r miss-dat-2, eval=F}
+
+## examine the number of missing cases for each variable
+missing.indicator <- data.frame(is.na(mydata))
+propMissing <- apply(missing.indicator,2,mean) # Vector of missininess
+
+## create dummy missing value indicators
+names(missing.indicator)[propMissing>0] <- paste(names(mydata)[propMissing>0],"NA",sep="")
+## convert dummy missing indicators from logical to numeric variables
+for (var in 1:ncol(missing.indicator)){
+  missing.indicator[,var] <- as.numeric(missing.indicator[,var]) 
+} ## End loop
+
+## merge covariate names with missing indicator names
+mydata <- cbind(mydata,missing.indicator[,propMissing>0])
+
+## show percentage missing
+print(round(propMissing,3))
+
+## impute separately for each Cohort
+# create storage
+long.imputation <- c()
+imputation <- list()
+## loop through Divisions
+for(group in c("MH-COVID", "ATG")) {
+  
+  ## creates a list of predictors of missing data with a mininum correlation of 0.05
+  ## and at least 50% of useful data
+  predictor.selection <- quickpred(
+    subset(mydata,Cohort==group), mincor=0.1, minpuc=0.1,method='pearson',exclude=c("ID", "Finished", "MO_CVD", "MAJOR", "DATE_COVID")
+  ) ## Creates prediction matrix more simply
+  #impute variables by from least missing to most missing
+  #Using multiple imputation by chained equations
+  #with predictive mean matching as the univariate imputation method
+  imputation[[group]] <- mice::mice(
+    subset(mydata,Cohort==group), m=5,method = "pmm",
+    visitSequence="monotone",
+    predictorMatrix = predictor.selection)
+  
+  #extract stacked data files
+  if(group == "MH-COVID"){
+    long.imputation = rbind(long.imputation,complete(imputation[[group]], action="long",include=T))
+  }
+  if(group == "ATG"){
+    long.imputation = rbind(long.imputation,complete(imputation[[group]], action="long"))
+  }
+  
+  
+} ## finish loop for Imputation
+
+## extract a single imputation dataset for use in this project
+imp_dat <- subset(long.imputation, subset=.imp==1)
+
+# save imputated datasets
+save(long.imputation, imp_dat, imputation, file = "data/imp_dat.RData")
+
+```
+
+

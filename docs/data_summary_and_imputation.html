@@ -1,0 +1,5794 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="R. Noah Padgett" />
+
+<meta name="date" content="2021-08-10" />
+
+<title>Data Summary</title>
+
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">religiousity-covid-study</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Data Summary</h1>
+<h4 class="author">R. Noah Padgett</h4>
+<h4 class="date">2021-08-10</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-08-15
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>religiousity-covid-study/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210724code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210724)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210724code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210724)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstronga368c61"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> a368c61 </a>
+</p>
+</div>
+<div id="strongRepositoryversionstronga368c61" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version a368c61. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    data/Boccia et al - Attachment to God Style Relates to Religiosity Measures.docx
+    Ignored:    data/COVID19 Mental Health Data_forNoah.xlsx
+    Ignored:    data/LGedits_Attachment to God Style Relates to Religiosity Measures endnote[29].docx
+    Ignored:    data/MH & COVID updated.xlsx
+    Ignored:    data/Methods.docx
+    Ignored:    data/Rates of anxiety and depression in college students before and during the pandemic.docx
+    Ignored:    data/Religiousity_Covid_Data_2021_07_24.csv
+    Ignored:    data/Research Questions.txt
+    Ignored:    data/imp_dat.RData
+    Ignored:    data/~$COVID19 Mental Health Data_forNoah.xlsx
+    Ignored:    data/~$MH & COVID updated.xlsx
+
+Untracked files:
+    Untracked:  analysis/R0_Summary_Table.Rmd
+    Untracked:  analysis/R1_correlations.Rmd
+    Untracked:  analysis/R2_HADS.Rmd
+    Untracked:  analysis/R3_atg_mental_health.Rmd
+    Untracked:  analysis/R4.Rmd
+    Untracked:  analysis/R5.Rmd
+    Untracked:  analysis/data_summary_and_imputation.Rmd
+    Untracked:  code/load_packages.R
+    Untracked:  code/utility_functions.R
+    Untracked:  manuscript/
+
+Unstaged changes:
+    Modified:   .gitignore
+    Modified:   analysis/index.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<p>Read in data</p>
+<pre class="r"><code>mydata &lt;- readxl::read_xlsx(&quot;data/MH &amp; COVID updated.xlsx&quot;)
+
+mydata &lt;- mydata[,colnames(mydata) != &quot;filter_$&quot;]</code></pre>
+<p>Major outcomes are the measures of mental health</p>
+<ul>
+<li>DEPR = depression</li>
+<li>ANX = anxiety</li>
+</ul>
+<p>Scores on both of these measures in these ranges indicate clinically relevant levels of ANX/DEPR 0-7 = NORMAL; 8-10 = BORDERLINE; 11-21 CLINICALLY DEPRESSED/ANXIOUS</p>
+<ul>
+<li>AUTH = authoritarian</li>
+<li>BENE = benevolent</li>
+</ul>
+<pre class="r"><code># recode all 0&#39;s for AUTH or BENE as NA
+mydata$AUTH[mydata$AUTH == 0] &lt;- NA
+mydata$BENE[mydata$BENE == 0] &lt;- NA
+
+mydata$Cohort = factor(mydata$COHORT, levels=1:2, labels=c(&quot;MH-COVID&quot;, &quot;ATG&quot;))
+
+mydata &lt;- mydata %&gt;%
+  group_by(Cohort) %&gt;%
+  mutate(
+    BENE.z = (BENE - mean(BENE, na.rm=T))/(sd(BENE, na.rm=T))
+  )
+
+
+subdat &lt;- mydata %&gt;%
+  dplyr::select(ID, Cohort, COVID, AUTH, BENE, BENE.z, AGIANX, AGIAVOID, DEPR, DEPR_DIAG, ANX, ANX_DIAG, AGI_SECURITY) 
+subdat$flag = 0
+i &lt;- 1
+for(i in 1:nrow(subdat)){
+  subdat$flag[i] = anyNA(subdat[i,-c(1:3)])
+}
+subdat &lt;- subdat %&gt;%
+  filter(flag == 0)</code></pre>
+<div id="data-summary-statistics" class="section level1">
+<h1>Data Summary Statistics</h1>
+<pre class="r"><code>myVar &lt;- c(&quot;AUTH&quot;, &quot;BENE&quot;, &quot;BENE.z&quot;, &quot;AGIANX&quot;, &quot;AGIAVOID&quot;, &quot;DEPR&quot;, &quot;DEPR_DIAG&quot;, &quot;ANX&quot;, &quot;ANX_DIAG&quot;, &quot;AGI_SECURITY&quot;)
+
+s1 &lt;- describe(mydata[, myVar])
+kable(s1, format=&quot;html&quot;, digits=2) %&gt;%
+  kable_styling(full_width = T) %&gt;%
+  scroll_box(height=&quot;400px&quot;)</code></pre>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; ">
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+vars
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+n
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+mean
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+sd
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+median
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+trimmed
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+mad
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+min
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+max
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+range
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+skew
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+kurtosis
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+se
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+AUTH
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+406
+</td>
+<td style="text-align:right;">
+24.98
+</td>
+<td style="text-align:right;">
+9.41
+</td>
+<td style="text-align:right;">
+24.00
+</td>
+<td style="text-align:right;">
+24.47
+</td>
+<td style="text-align:right;">
+8.90
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+54.00
+</td>
+<td style="text-align:right;">
+45.00
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+-0.18
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BENE
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+406
+</td>
+<td style="text-align:right;">
+45.97
+</td>
+<td style="text-align:right;">
+10.32
+</td>
+<td style="text-align:right;">
+45.00
+</td>
+<td style="text-align:right;">
+46.17
+</td>
+<td style="text-align:right;">
+10.38
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+63.00
+</td>
+<td style="text-align:right;">
+54.00
+</td>
+<td style="text-align:right;">
+-0.08
+</td>
+<td style="text-align:right;">
+-0.17
+</td>
+<td style="text-align:right;">
+0.51
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BENE.z
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+406
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+-5.01
+</td>
+<td style="text-align:right;">
+0.82
+</td>
+<td style="text-align:right;">
+5.83
+</td>
+<td style="text-align:right;">
+-1.96
+</td>
+<td style="text-align:right;">
+4.06
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGIANX
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+404
+</td>
+<td style="text-align:right;">
+34.44
+</td>
+<td style="text-align:right;">
+10.95
+</td>
+<td style="text-align:right;">
+34.50
+</td>
+<td style="text-align:right;">
+33.89
+</td>
+<td style="text-align:right;">
+11.12
+</td>
+<td style="text-align:right;">
+12.00
+</td>
+<td style="text-align:right;">
+74.00
+</td>
+<td style="text-align:right;">
+62.00
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+0.54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGIAVOID
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+404
+</td>
+<td style="text-align:right;">
+23.63
+</td>
+<td style="text-align:right;">
+8.32
+</td>
+<td style="text-align:right;">
+23.00
+</td>
+<td style="text-align:right;">
+23.06
+</td>
+<td style="text-align:right;">
+8.90
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+53.00
+</td>
+<td style="text-align:right;">
+44.00
+</td>
+<td style="text-align:right;">
+0.69
+</td>
+<td style="text-align:right;">
+0.32
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DEPR
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+414
+</td>
+<td style="text-align:right;">
+4.50
+</td>
+<td style="text-align:right;">
+3.20
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+4.27
+</td>
+<td style="text-align:right;">
+2.97
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+15.00
+</td>
+<td style="text-align:right;">
+15.00
+</td>
+<td style="text-align:right;">
+0.56
+</td>
+<td style="text-align:right;">
+-0.41
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DEPR_DIAG
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+414
+</td>
+<td style="text-align:right;">
+1.24
+</td>
+<td style="text-align:right;">
+0.53
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.12
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+2.19
+</td>
+<td style="text-align:right;">
+4.35
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ANX
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+414
+</td>
+<td style="text-align:right;">
+10.18
+</td>
+<td style="text-align:right;">
+4.21
+</td>
+<td style="text-align:right;">
+10.00
+</td>
+<td style="text-align:right;">
+10.16
+</td>
+<td style="text-align:right;">
+4.45
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+21.00
+</td>
+<td style="text-align:right;">
+21.00
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+-0.79
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ANX_DIAG
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+414
+</td>
+<td style="text-align:right;">
+2.34
+</td>
+<td style="text-align:right;">
+1.10
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+2.30
+</td>
+<td style="text-align:right;">
+1.48
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+<td style="text-align:right;">
+-1.36
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGI_SECURITY
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+404
+</td>
+<td style="text-align:right;">
+2.54
+</td>
+<td style="text-align:right;">
+1.19
+</td>
+<td style="text-align:right;">
+2.50
+</td>
+<td style="text-align:right;">
+2.55
+</td>
+<td style="text-align:right;">
+2.22
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+-0.02
+</td>
+<td style="text-align:right;">
+-1.52
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="r"><code>s2 &lt;- describe(subdat[, myVar])
+kable(s2, format=&quot;html&quot;, digits=2) %&gt;%
+  kable_styling(full_width = T) %&gt;%
+  scroll_box(height=&quot;400px&quot;)</code></pre>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; ">
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+vars
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+n
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+mean
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+sd
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+median
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+trimmed
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+mad
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+min
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+max
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+range
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+skew
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+kurtosis
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+se
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+AUTH
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+403
+</td>
+<td style="text-align:right;">
+25.05
+</td>
+<td style="text-align:right;">
+9.39
+</td>
+<td style="text-align:right;">
+24.00
+</td>
+<td style="text-align:right;">
+24.53
+</td>
+<td style="text-align:right;">
+8.90
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+54.00
+</td>
+<td style="text-align:right;">
+45.00
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+-0.18
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BENE
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+403
+</td>
+<td style="text-align:right;">
+45.99
+</td>
+<td style="text-align:right;">
+10.35
+</td>
+<td style="text-align:right;">
+45.00
+</td>
+<td style="text-align:right;">
+46.20
+</td>
+<td style="text-align:right;">
+10.38
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+63.00
+</td>
+<td style="text-align:right;">
+54.00
+</td>
+<td style="text-align:right;">
+-0.09
+</td>
+<td style="text-align:right;">
+-0.19
+</td>
+<td style="text-align:right;">
+0.52
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BENE.z
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+403
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+-5.01
+</td>
+<td style="text-align:right;">
+0.82
+</td>
+<td style="text-align:right;">
+5.83
+</td>
+<td style="text-align:right;">
+-1.95
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGIANX
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+403
+</td>
+<td style="text-align:right;">
+34.43
+</td>
+<td style="text-align:right;">
+10.96
+</td>
+<td style="text-align:right;">
+34.00
+</td>
+<td style="text-align:right;">
+33.88
+</td>
+<td style="text-align:right;">
+10.38
+</td>
+<td style="text-align:right;">
+12.00
+</td>
+<td style="text-align:right;">
+74.00
+</td>
+<td style="text-align:right;">
+62.00
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGIAVOID
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+403
+</td>
+<td style="text-align:right;">
+23.66
+</td>
+<td style="text-align:right;">
+8.31
+</td>
+<td style="text-align:right;">
+23.00
+</td>
+<td style="text-align:right;">
+23.09
+</td>
+<td style="text-align:right;">
+8.90
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+53.00
+</td>
+<td style="text-align:right;">
+44.00
+</td>
+<td style="text-align:right;">
+0.69
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DEPR
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+403
+</td>
+<td style="text-align:right;">
+4.47
+</td>
+<td style="text-align:right;">
+3.21
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+4.23
+</td>
+<td style="text-align:right;">
+2.97
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+15.00
+</td>
+<td style="text-align:right;">
+15.00
+</td>
+<td style="text-align:right;">
+0.58
+</td>
+<td style="text-align:right;">
+-0.39
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DEPR_DIAG
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+403
+</td>
+<td style="text-align:right;">
+1.25
+</td>
+<td style="text-align:right;">
+0.53
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.12
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+2.19
+</td>
+<td style="text-align:right;">
+4.31
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ANX
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+403
+</td>
+<td style="text-align:right;">
+10.15
+</td>
+<td style="text-align:right;">
+4.23
+</td>
+<td style="text-align:right;">
+10.00
+</td>
+<td style="text-align:right;">
+10.12
+</td>
+<td style="text-align:right;">
+4.45
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+21.00
+</td>
+<td style="text-align:right;">
+21.00
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+-0.80
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ANX_DIAG
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+403
+</td>
+<td style="text-align:right;">
+2.33
+</td>
+<td style="text-align:right;">
+1.10
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+2.29
+</td>
+<td style="text-align:right;">
+1.48
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+-1.37
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGI_SECURITY
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+403
+</td>
+<td style="text-align:right;">
+2.54
+</td>
+<td style="text-align:right;">
+1.19
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+2.55
+</td>
+<td style="text-align:right;">
+1.48
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+-0.03
+</td>
+<td style="text-align:right;">
+-1.52
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Summary stats by cohort</p>
+<pre class="r"><code>s1 &lt;- describeBy(mydata[, myVar],group = mydata$Cohort, mat=T)
+kable(s1, format=&quot;html&quot;, digits=2) %&gt;%
+  kable_styling(full_width = T) %&gt;%
+  scroll_box(height=&quot;400px&quot;)</code></pre>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; ">
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+item
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+group1
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+vars
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+n
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+mean
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+sd
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+median
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+trimmed
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+mad
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+min
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+max
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+range
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+skew
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+kurtosis
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+se
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+AUTH1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+268
+</td>
+<td style="text-align:right;">
+23.35
+</td>
+<td style="text-align:right;">
+7.85
+</td>
+<td style="text-align:right;">
+23.00
+</td>
+<td style="text-align:right;">
+22.99
+</td>
+<td style="text-align:right;">
+7.41
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+45.00
+</td>
+<td style="text-align:right;">
+36.00
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+<td style="text-align:right;">
+-0.06
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AUTH2
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+28.16
+</td>
+<td style="text-align:right;">
+11.23
+</td>
+<td style="text-align:right;">
+29.00
+</td>
+<td style="text-align:right;">
+27.91
+</td>
+<td style="text-align:right;">
+13.34
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+54.00
+</td>
+<td style="text-align:right;">
+45.00
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+-0.88
+</td>
+<td style="text-align:right;">
+0.96
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BENE1
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+268
+</td>
+<td style="text-align:right;">
+40.33
+</td>
+<td style="text-align:right;">
+6.25
+</td>
+<td style="text-align:right;">
+43.00
+</td>
+<td style="text-align:right;">
+41.59
+</td>
+<td style="text-align:right;">
+2.97
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+45.00
+</td>
+<td style="text-align:right;">
+36.00
+</td>
+<td style="text-align:right;">
+-1.84
+</td>
+<td style="text-align:right;">
+3.68
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BENE2
+</td>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+56.93
+</td>
+<td style="text-align:right;">
+7.43
+</td>
+<td style="text-align:right;">
+59.00
+</td>
+<td style="text-align:right;">
+58.50
+</td>
+<td style="text-align:right;">
+4.45
+</td>
+<td style="text-align:right;">
+27.00
+</td>
+<td style="text-align:right;">
+63.00
+</td>
+<td style="text-align:right;">
+36.00
+</td>
+<td style="text-align:right;">
+-2.16
+</td>
+<td style="text-align:right;">
+4.67
+</td>
+<td style="text-align:right;">
+0.63
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BENE.z1
+</td>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+268
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+<td style="text-align:right;">
+-5.01
+</td>
+<td style="text-align:right;">
+0.75
+</td>
+<td style="text-align:right;">
+5.76
+</td>
+<td style="text-align:right;">
+-1.84
+</td>
+<td style="text-align:right;">
+3.68
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BENE.z2
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+-4.03
+</td>
+<td style="text-align:right;">
+0.82
+</td>
+<td style="text-align:right;">
+4.85
+</td>
+<td style="text-align:right;">
+-2.16
+</td>
+<td style="text-align:right;">
+4.67
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGIANX1
+</td>
+<td style="text-align:left;">
+7
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+265
+</td>
+<td style="text-align:right;">
+32.19
+</td>
+<td style="text-align:right;">
+8.91
+</td>
+<td style="text-align:right;">
+32.00
+</td>
+<td style="text-align:right;">
+31.98
+</td>
+<td style="text-align:right;">
+8.90
+</td>
+<td style="text-align:right;">
+13.00
+</td>
+<td style="text-align:right;">
+58.00
+</td>
+<td style="text-align:right;">
+45.00
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+-0.54
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGIANX2
+</td>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+139
+</td>
+<td style="text-align:right;">
+38.73
+</td>
+<td style="text-align:right;">
+13.05
+</td>
+<td style="text-align:right;">
+38.00
+</td>
+<td style="text-align:right;">
+38.27
+</td>
+<td style="text-align:right;">
+13.34
+</td>
+<td style="text-align:right;">
+12.00
+</td>
+<td style="text-align:right;">
+74.00
+</td>
+<td style="text-align:right;">
+62.00
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+-0.26
+</td>
+<td style="text-align:right;">
+1.11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGIAVOID1
+</td>
+<td style="text-align:left;">
+9
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+265
+</td>
+<td style="text-align:right;">
+23.20
+</td>
+<td style="text-align:right;">
+7.54
+</td>
+<td style="text-align:right;">
+23.00
+</td>
+<td style="text-align:right;">
+22.94
+</td>
+<td style="text-align:right;">
+8.90
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+42.00
+</td>
+<td style="text-align:right;">
+33.00
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+-0.81
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGIAVOID2
+</td>
+<td style="text-align:left;">
+10
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+139
+</td>
+<td style="text-align:right;">
+24.46
+</td>
+<td style="text-align:right;">
+9.61
+</td>
+<td style="text-align:right;">
+23.00
+</td>
+<td style="text-align:right;">
+23.47
+</td>
+<td style="text-align:right;">
+8.90
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+53.00
+</td>
+<td style="text-align:right;">
+44.00
+</td>
+<td style="text-align:right;">
+0.96
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+0.81
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DEPR1
+</td>
+<td style="text-align:left;">
+11
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+275
+</td>
+<td style="text-align:right;">
+5.07
+</td>
+<td style="text-align:right;">
+3.20
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+4.90
+</td>
+<td style="text-align:right;">
+4.45
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+15.00
+</td>
+<td style="text-align:right;">
+15.00
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+<td style="text-align:right;">
+-0.53
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DEPR2
+</td>
+<td style="text-align:left;">
+12
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+139
+</td>
+<td style="text-align:right;">
+3.37
+</td>
+<td style="text-align:right;">
+2.90
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+3.05
+</td>
+<td style="text-align:right;">
+2.97
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+13.00
+</td>
+<td style="text-align:right;">
+13.00
+</td>
+<td style="text-align:right;">
+0.98
+</td>
+<td style="text-align:right;">
+0.39
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DEPR_DIAG1
+</td>
+<td style="text-align:left;">
+13
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+275
+</td>
+<td style="text-align:right;">
+1.29
+</td>
+<td style="text-align:right;">
+0.56
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.17
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+1.94
+</td>
+<td style="text-align:right;">
+3.31
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DEPR_DIAG2
+</td>
+<td style="text-align:left;">
+14
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+139
+</td>
+<td style="text-align:right;">
+1.16
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.04
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+2.90
+</td>
+<td style="text-align:right;">
+7.72
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ANX1
+</td>
+<td style="text-align:left;">
+15
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+275
+</td>
+<td style="text-align:right;">
+10.87
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+11.00
+</td>
+<td style="text-align:right;">
+10.90
+</td>
+<td style="text-align:right;">
+4.45
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+20.00
+</td>
+<td style="text-align:right;">
+20.00
+</td>
+<td style="text-align:right;">
+-0.10
+</td>
+<td style="text-align:right;">
+-0.78
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ANX2
+</td>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+139
+</td>
+<td style="text-align:right;">
+8.82
+</td>
+<td style="text-align:right;">
+4.30
+</td>
+<td style="text-align:right;">
+8.00
+</td>
+<td style="text-align:right;">
+8.67
+</td>
+<td style="text-align:right;">
+4.45
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+21.00
+</td>
+<td style="text-align:right;">
+21.00
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+<td style="text-align:right;">
+-0.58
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ANX_DIAG1
+</td>
+<td style="text-align:left;">
+17
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+275
+</td>
+<td style="text-align:right;">
+2.51
+</td>
+<td style="text-align:right;">
+1.08
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+2.52
+</td>
+<td style="text-align:right;">
+1.48
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+-0.14
+</td>
+<td style="text-align:right;">
+-1.28
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ANX_DIAG2
+</td>
+<td style="text-align:left;">
+18
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+139
+</td>
+<td style="text-align:right;">
+2.01
+</td>
+<td style="text-align:right;">
+1.06
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+1.89
+</td>
+<td style="text-align:right;">
+1.48
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+-1.17
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGI_SECURITY1
+</td>
+<td style="text-align:left;">
+19
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+265
+</td>
+<td style="text-align:right;">
+2.68
+</td>
+<td style="text-align:right;">
+1.20
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+2.72
+</td>
+<td style="text-align:right;">
+1.48
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+-0.25
+</td>
+<td style="text-align:right;">
+-1.49
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGI_SECURITY2
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+139
+</td>
+<td style="text-align:right;">
+2.28
+</td>
+<td style="text-align:right;">
+1.13
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+2.23
+</td>
+<td style="text-align:right;">
+1.48
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+<td style="text-align:right;">
+-1.24
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="r"><code>s2 &lt;- describeBy(subdat[, myVar], group=subdat$Cohort, mat=T)
+kable(s2, format=&quot;html&quot;, digits=2) %&gt;%
+  kable_styling(full_width = T) %&gt;%
+  scroll_box(height=&quot;400px&quot;)</code></pre>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; ">
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+item
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+group1
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+vars
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+n
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+mean
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+sd
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+median
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+trimmed
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+mad
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+min
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+max
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+range
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+skew
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+kurtosis
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+se
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+AUTH1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+265
+</td>
+<td style="text-align:right;">
+23.43
+</td>
+<td style="text-align:right;">
+7.81
+</td>
+<td style="text-align:right;">
+23.00
+</td>
+<td style="text-align:right;">
+23.07
+</td>
+<td style="text-align:right;">
+7.41
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+45.00
+</td>
+<td style="text-align:right;">
+36.00
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AUTH2
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+28.16
+</td>
+<td style="text-align:right;">
+11.23
+</td>
+<td style="text-align:right;">
+29.00
+</td>
+<td style="text-align:right;">
+27.91
+</td>
+<td style="text-align:right;">
+13.34
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+54.00
+</td>
+<td style="text-align:right;">
+45.00
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+-0.88
+</td>
+<td style="text-align:right;">
+0.96
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BENE1
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+265
+</td>
+<td style="text-align:right;">
+40.29
+</td>
+<td style="text-align:right;">
+6.27
+</td>
+<td style="text-align:right;">
+43.00
+</td>
+<td style="text-align:right;">
+41.56
+</td>
+<td style="text-align:right;">
+2.97
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+45.00
+</td>
+<td style="text-align:right;">
+36.00
+</td>
+<td style="text-align:right;">
+-1.82
+</td>
+<td style="text-align:right;">
+3.61
+</td>
+<td style="text-align:right;">
+0.39
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BENE2
+</td>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+56.93
+</td>
+<td style="text-align:right;">
+7.43
+</td>
+<td style="text-align:right;">
+59.00
+</td>
+<td style="text-align:right;">
+58.50
+</td>
+<td style="text-align:right;">
+4.45
+</td>
+<td style="text-align:right;">
+27.00
+</td>
+<td style="text-align:right;">
+63.00
+</td>
+<td style="text-align:right;">
+36.00
+</td>
+<td style="text-align:right;">
+-2.16
+</td>
+<td style="text-align:right;">
+4.67
+</td>
+<td style="text-align:right;">
+0.63
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BENE.z1
+</td>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+265
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+<td style="text-align:right;">
+-5.01
+</td>
+<td style="text-align:right;">
+0.75
+</td>
+<td style="text-align:right;">
+5.76
+</td>
+<td style="text-align:right;">
+-1.82
+</td>
+<td style="text-align:right;">
+3.61
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BENE.z2
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+-4.03
+</td>
+<td style="text-align:right;">
+0.82
+</td>
+<td style="text-align:right;">
+4.85
+</td>
+<td style="text-align:right;">
+-2.16
+</td>
+<td style="text-align:right;">
+4.67
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGIANX1
+</td>
+<td style="text-align:left;">
+7
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+265
+</td>
+<td style="text-align:right;">
+32.19
+</td>
+<td style="text-align:right;">
+8.91
+</td>
+<td style="text-align:right;">
+32.00
+</td>
+<td style="text-align:right;">
+31.98
+</td>
+<td style="text-align:right;">
+8.90
+</td>
+<td style="text-align:right;">
+13.00
+</td>
+<td style="text-align:right;">
+58.00
+</td>
+<td style="text-align:right;">
+45.00
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+-0.54
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGIANX2
+</td>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+38.74
+</td>
+<td style="text-align:right;">
+13.10
+</td>
+<td style="text-align:right;">
+38.00
+</td>
+<td style="text-align:right;">
+38.28
+</td>
+<td style="text-align:right;">
+13.34
+</td>
+<td style="text-align:right;">
+12.00
+</td>
+<td style="text-align:right;">
+74.00
+</td>
+<td style="text-align:right;">
+62.00
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+-0.28
+</td>
+<td style="text-align:right;">
+1.11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGIAVOID1
+</td>
+<td style="text-align:left;">
+9
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+265
+</td>
+<td style="text-align:right;">
+23.20
+</td>
+<td style="text-align:right;">
+7.54
+</td>
+<td style="text-align:right;">
+23.00
+</td>
+<td style="text-align:right;">
+22.94
+</td>
+<td style="text-align:right;">
+8.90
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+42.00
+</td>
+<td style="text-align:right;">
+33.00
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+-0.81
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGIAVOID2
+</td>
+<td style="text-align:left;">
+10
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+24.54
+</td>
+<td style="text-align:right;">
+9.59
+</td>
+<td style="text-align:right;">
+23.00
+</td>
+<td style="text-align:right;">
+23.55
+</td>
+<td style="text-align:right;">
+8.90
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:right;">
+53.00
+</td>
+<td style="text-align:right;">
+44.00
+</td>
+<td style="text-align:right;">
+0.96
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+0.82
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DEPR1
+</td>
+<td style="text-align:left;">
+11
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+265
+</td>
+<td style="text-align:right;">
+5.06
+</td>
+<td style="text-align:right;">
+3.21
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+4.88
+</td>
+<td style="text-align:right;">
+4.45
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+15.00
+</td>
+<td style="text-align:right;">
+15.00
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:right;">
+-0.52
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DEPR2
+</td>
+<td style="text-align:left;">
+12
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+3.35
+</td>
+<td style="text-align:right;">
+2.90
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+3.03
+</td>
+<td style="text-align:right;">
+2.97
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+13.00
+</td>
+<td style="text-align:right;">
+13.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DEPR_DIAG1
+</td>
+<td style="text-align:left;">
+13
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+265
+</td>
+<td style="text-align:right;">
+1.29
+</td>
+<td style="text-align:right;">
+0.57
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.17
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+1.93
+</td>
+<td style="text-align:right;">
+3.26
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DEPR_DIAG2
+</td>
+<td style="text-align:left;">
+14
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+1.16
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.04
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+2.89
+</td>
+<td style="text-align:right;">
+7.63
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ANX1
+</td>
+<td style="text-align:left;">
+15
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+265
+</td>
+<td style="text-align:right;">
+10.85
+</td>
+<td style="text-align:right;">
+4.02
+</td>
+<td style="text-align:right;">
+11.00
+</td>
+<td style="text-align:right;">
+10.88
+</td>
+<td style="text-align:right;">
+4.45
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+20.00
+</td>
+<td style="text-align:right;">
+20.00
+</td>
+<td style="text-align:right;">
+-0.09
+</td>
+<td style="text-align:right;">
+-0.79
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ANX2
+</td>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+8.80
+</td>
+<td style="text-align:right;">
+4.31
+</td>
+<td style="text-align:right;">
+8.00
+</td>
+<td style="text-align:right;">
+8.64
+</td>
+<td style="text-align:right;">
+4.45
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+21.00
+</td>
+<td style="text-align:right;">
+21.00
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+-0.58
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ANX_DIAG1
+</td>
+<td style="text-align:left;">
+17
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+265
+</td>
+<td style="text-align:right;">
+2.50
+</td>
+<td style="text-align:right;">
+1.08
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+2.50
+</td>
+<td style="text-align:right;">
+1.48
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+-0.13
+</td>
+<td style="text-align:right;">
+-1.29
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ANX_DIAG2
+</td>
+<td style="text-align:left;">
+18
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+1.06
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+1.88
+</td>
+<td style="text-align:right;">
+1.48
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+0.51
+</td>
+<td style="text-align:right;">
+-1.15
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGI_SECURITY1
+</td>
+<td style="text-align:left;">
+19
+</td>
+<td style="text-align:left;">
+MH-COVID
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+265
+</td>
+<td style="text-align:right;">
+2.68
+</td>
+<td style="text-align:right;">
+1.20
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+2.72
+</td>
+<td style="text-align:right;">
+1.48
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+-0.25
+</td>
+<td style="text-align:right;">
+-1.49
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGI_SECURITY2
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+ATG
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+2.28
+</td>
+<td style="text-align:right;">
+1.13
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+2.23
+</td>
+<td style="text-align:right;">
+1.48
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+0.39
+</td>
+<td style="text-align:right;">
+-1.26
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="visualize-to-help-me" class="section level2">
+<h2>Visualize to help me</h2>
+<pre class="r"><code>ggplot(mydata, aes(x=Cohort, y=AUTH, color=Cohort, fill=Cohort))+
+  geom_boxplot(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()</code></pre>
+<pre><code>Warning: Removed 52 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="figure/data_summary_and_imputation.Rmd/vis-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(mydata, aes(x=Cohort, y=BENE, color=Cohort, fill=Cohort))+
+  geom_boxplot(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()</code></pre>
+<pre><code>Warning: Removed 52 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="figure/data_summary_and_imputation.Rmd/vis-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(mydata, aes(x=Cohort, y=BENE.z, color=Cohort, fill=Cohort))+
+  geom_boxplot(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()</code></pre>
+<pre><code>Warning: Removed 52 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="figure/data_summary_and_imputation.Rmd/vis-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(mydata, aes(x=Cohort, y=AGIANX, color=Cohort, fill=Cohort))+
+  geom_boxplot(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()</code></pre>
+<pre><code>Warning: Removed 54 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="figure/data_summary_and_imputation.Rmd/vis-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(mydata, aes(x=Cohort, y=AGIAVOID, color=Cohort, fill=Cohort))+
+  geom_boxplot(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()</code></pre>
+<pre><code>Warning: Removed 54 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="figure/data_summary_and_imputation.Rmd/vis-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(mydata, aes(x=Cohort, y=DEPR, color=Cohort, fill=Cohort))+
+  geom_boxplot(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()</code></pre>
+<pre><code>Warning: Removed 44 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="figure/data_summary_and_imputation.Rmd/vis-6.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(mydata, aes(x=Cohort, y=ANX, color=Cohort, fill=Cohort))+
+  geom_boxplot(alpha=0.5) +
+  scale_color_grey()+
+  scale_fill_grey()+
+  theme_classic()</code></pre>
+<pre><code>Warning: Removed 44 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="figure/data_summary_and_imputation.Rmd/vis-7.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="missing-data" class="section level1">
+<h1>Missing Data</h1>
+<pre class="r"><code>miss.patt &lt;- md.pattern(mydata, plot = T,rotate.names = T)</code></pre>
+<p><img src="figure/data_summary_and_imputation.Rmd/miss-data-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>kable(miss.patt, format=&quot;html&quot;) %&gt;%
+  kable_styling(full_width = T) %&gt;%
+  scroll_box(height=500)</code></pre>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500; ">
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+COHORT
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+ID
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Cohort
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+AGE
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+RACE
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+SEX
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+REL_FREQ
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+YEAR
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+DEPR
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+DEPR_DIAG
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+ANX
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+ANX_DIAG
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+AUTH
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+BENE
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+BENE.z
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+AGIANX
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+ANX_AVG
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+ANX_HILOW
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+AGIAVOID
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+AVOID_AVG
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+AVOID_HILOW
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+AGI_SECURITY
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+ATG_MAJOR
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Finished
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+M_ED
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+REL_AFFIL
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+COVID
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+MAJOR
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+MH_MAJOR
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+DATE_COVID
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+MO_CVD
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+63
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+194
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+90
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+45
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+32
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+27
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+81
+</td>
+<td style="text-align:right;">
+139
+</td>
+<td style="text-align:right;">
+171
+</td>
+<td style="text-align:right;">
+171
+</td>
+<td style="text-align:right;">
+171
+</td>
+<td style="text-align:right;">
+172
+</td>
+<td style="text-align:right;">
+172
+</td>
+<td style="text-align:right;">
+385
+</td>
+<td style="text-align:right;">
+390
+</td>
+<td style="text-align:right;">
+2728
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="r"><code>gather(mydata) %&gt;%
+    group_by(key) %&gt;%
+    summarize(prop_na = mean(is.na(value))) %&gt;%
+    ggplot(mapping = aes(x = key, y = prop_na)) +
+    geom_bar(stat = &quot;identity&quot;) +
+    scale_y_continuous(limits = c(0,1)) +
+    theme_bw() + 
+    theme(
+      legend.key = element_blank(), 
+      axis.text.x = element_text(
+                       angle = 90, 
+                       hjust = 1, vjust = .05))</code></pre>
+<pre><code>Warning: attributes are not identical across measure variables;
+they will be dropped</code></pre>
+<p><img src="figure/data_summary_and_imputation.Rmd/miss-data-1-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>vis_miss(mydata)</code></pre>
+<p><img src="figure/data_summary_and_imputation.Rmd/miss-data-1-3.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="handling-missing-data" class="section level2">
+<h2>Handling missing data</h2>
+<pre class="r"><code>## examine the number of missing cases for each variable
+missing.indicator &lt;- data.frame(is.na(mydata))
+propMissing &lt;- apply(missing.indicator,2,mean) # Vector of missininess
+
+## create dummy missing value indicators
+names(missing.indicator)[propMissing&gt;0] &lt;- paste(names(mydata)[propMissing&gt;0],&quot;NA&quot;,sep=&quot;&quot;)
+## convert dummy missing indicators from logical to numeric variables
+for (var in 1:ncol(missing.indicator)){
+  missing.indicator[,var] &lt;- as.numeric(missing.indicator[,var]) 
+} ## End loop
+
+## merge covariate names with missing indicator names
+mydata &lt;- cbind(mydata,missing.indicator[,propMissing&gt;0])
+
+## show percentage missing
+print(round(propMissing,3))
+
+## impute separately for each Cohort
+# create storage
+long.imputation &lt;- c()
+imputation &lt;- list()
+## loop through Divisions
+for(group in c(&quot;MH-COVID&quot;, &quot;ATG&quot;)) {
+  
+  ## creates a list of predictors of missing data with a mininum correlation of 0.05
+  ## and at least 50% of useful data
+  predictor.selection &lt;- quickpred(
+    subset(mydata,Cohort==group), mincor=0.1, minpuc=0.1,method=&#39;pearson&#39;,exclude=c(&quot;ID&quot;, &quot;Finished&quot;, &quot;MO_CVD&quot;, &quot;MAJOR&quot;, &quot;DATE_COVID&quot;)
+  ) ## Creates prediction matrix more simply
+  #impute variables by from least missing to most missing
+  #Using multiple imputation by chained equations
+  #with predictive mean matching as the univariate imputation method
+  imputation[[group]] &lt;- mice::mice(
+    subset(mydata,Cohort==group), m=5,method = &quot;pmm&quot;,
+    visitSequence=&quot;monotone&quot;,
+    predictorMatrix = predictor.selection)
+  
+  #extract stacked data files
+  if(group == &quot;MH-COVID&quot;){
+    long.imputation = rbind(long.imputation,complete(imputation[[group]], action=&quot;long&quot;,include=T))
+  }
+  if(group == &quot;ATG&quot;){
+    long.imputation = rbind(long.imputation,complete(imputation[[group]], action=&quot;long&quot;))
+  }
+  
+  
+} ## finish loop for Imputation
+
+## extract a single imputation dataset for use in this project
+imp_dat &lt;- subset(long.imputation, subset=.imp==1)
+
+# save imputated datasets
+save(long.imputation, imp_dat, imputation, file = &quot;data/imp_dat.RData&quot;)</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.5 (2021-03-31)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_United States.1252 
+[2] LC_CTYPE=English_United States.1252   
+[3] LC_MONETARY=English_United States.1252
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] mitools_2.4       mitml_0.4-1       naniar_0.6.0      miceadds_3.11-6  
+ [5] mice_3.13.0       car_3.0-10        carData_3.0-4     patchwork_1.1.1  
+ [9] psych_2.0.12      viridis_0.5.1     viridisLite_0.3.0 gridExtra_2.3    
+[13] xtable_1.8-4      kableExtra_1.3.4  GGally_2.1.1      MASS_7.3-53.1    
+[17] data.table_1.14.0 readxl_1.3.1      forcats_0.5.1     stringr_1.4.0    
+[21] dplyr_1.0.5       purrr_0.3.4       readr_1.4.0       tidyr_1.1.3      
+[25] tibble_3.1.0      ggplot2_3.3.3     tidyverse_1.3.0   workflowr_1.6.2  
+
+loaded via a namespace (and not attached):
+ [1] minqa_1.2.4        colorspace_2.0-0   ellipsis_0.3.1     rio_0.5.26        
+ [5] visdat_0.5.3       rprojroot_2.0.2    fs_1.5.0           rstudioapi_0.13   
+ [9] farver_2.1.0       fansi_0.4.2        lubridate_1.7.10   xml2_1.3.2        
+[13] splines_4.0.5      mnormt_2.0.2       knitr_1.31         jsonlite_1.7.2    
+[17] nloptr_1.2.2.2     broom_0.7.5        dbplyr_2.1.0       compiler_4.0.5    
+[21] httr_1.4.2         backports_1.2.1    assertthat_0.2.1   Matrix_1.3-2      
+[25] cli_2.3.1          later_1.1.0.1      htmltools_0.5.1.1  tools_4.0.5       
+[29] gtable_0.3.0       glue_1.4.2         Rcpp_1.0.7         cellranger_1.1.0  
+[33] jquerylib_0.1.3    vctrs_0.3.6        svglite_2.0.0      nlme_3.1-152      
+[37] xfun_0.21          ps_1.6.0           openxlsx_4.2.3     lme4_1.1-26       
+[41] rvest_1.0.0        lifecycle_1.0.0    statmod_1.4.35     pan_1.6           
+[45] scales_1.1.1       hms_1.0.0          promises_1.2.0.1   parallel_4.0.5    
+[49] RColorBrewer_1.1-2 yaml_2.2.1         curl_4.3           sass_0.3.1        
+[53] reshape_0.8.8      stringi_1.5.3      highr_0.8          boot_1.3-27       
+[57] zip_2.1.1          rlang_0.4.10       pkgconfig_2.0.3    systemfonts_1.0.1 
+[61] evaluate_0.14      lattice_0.20-41    labeling_0.4.2     tidyselect_1.1.0  
+[65] plyr_1.8.6         magrittr_2.0.1     R6_2.5.0           generics_0.1.0    
+[69] DBI_1.1.1          pillar_1.5.1       haven_2.3.1        foreign_0.8-81    
+[73] withr_2.4.1        survival_3.2-10    abind_1.4-5        modelr_0.1.8      
+[77] crayon_1.4.1       jomo_2.7-2         utf8_1.1.4         tmvnsim_1.0-2     
+[81] rmarkdown_2.7      grid_4.0.5         git2r_0.28.0       reprex_1.0.0      
+[85] digest_0.6.27      webshot_0.5.2      httpuv_1.5.5       munsell_0.5.0     
+[89] bslib_0.2.4       </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

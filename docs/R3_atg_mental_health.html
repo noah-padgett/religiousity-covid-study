@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="R. Noah Padgett" />
+
+<meta name="date" content="2021-08-13" />
+
+<title>Research Question 3</title>
+
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">religiousity-covid-study</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Research Question 3</h1>
+<h3 class="subtitle">AtG and Depression and Anxiety Scores</h3>
+<h4 class="author">R. Noah Padgett</h4>
+<h4 class="date">2021-08-13</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-08-15
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>religiousity-covid-study/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210724code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210724)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210724code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210724)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstronga368c61"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> a368c61 </a>
+</p>
+</div>
+<div id="strongRepositoryversionstronga368c61" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version a368c61. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    data/Boccia et al - Attachment to God Style Relates to Religiosity Measures.docx
+    Ignored:    data/COVID19 Mental Health Data_forNoah.xlsx
+    Ignored:    data/LGedits_Attachment to God Style Relates to Religiosity Measures endnote[29].docx
+    Ignored:    data/MH & COVID updated.xlsx
+    Ignored:    data/Methods.docx
+    Ignored:    data/Rates of anxiety and depression in college students before and during the pandemic.docx
+    Ignored:    data/Religiousity_Covid_Data_2021_07_24.csv
+    Ignored:    data/Research Questions.txt
+    Ignored:    data/imp_dat.RData
+    Ignored:    data/~$COVID19 Mental Health Data_forNoah.xlsx
+    Ignored:    data/~$MH & COVID updated.xlsx
+
+Untracked files:
+    Untracked:  analysis/R0_Summary_Table.Rmd
+    Untracked:  analysis/R1_correlations.Rmd
+    Untracked:  analysis/R2_HADS.Rmd
+    Untracked:  analysis/R3_atg_mental_health.Rmd
+    Untracked:  analysis/R4.Rmd
+    Untracked:  analysis/R5.Rmd
+    Untracked:  analysis/data_summary_and_imputation.Rmd
+    Untracked:  code/load_packages.R
+    Untracked:  code/utility_functions.R
+    Untracked:  manuscript/
+
+Unstaged changes:
+    Modified:   .gitignore
+    Modified:   analysis/index.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<pre><code>Research Question 3:
+
+Do higher levels of anxious or avoidant attachment style to God relate to higher scores of depression or anxiety in cohort 1 or 2?</code></pre>
+<p>Read in data</p>
+<pre class="r"><code># Load imputed data
+load(&quot;data/imp_dat.RData&quot;)
+imp_dat_c1 &lt;- imputation[[1]]
+imp_dat_c2 &lt;- imputation[[2]]
+imp_dat_mids &lt;- rbind(imp_dat_c1, imp_dat_c2)
+
+mydata &lt;- readxl::read_xlsx(&quot;data/MH &amp; COVID updated.xlsx&quot;)
+
+mydata &lt;- mydata[,colnames(mydata) != &quot;filter_$&quot;]
+
+# recoding to correct for errors
+# recode all 0&#39;s for AUTH or BENE as NA
+mydata$AUTH[mydata$AUTH == 0] &lt;- NA
+mydata$BENE[mydata$BENE == 0] &lt;- NA
+
+mydata &lt;- mydata %&gt;%
+  group_by(COHORT) %&gt;%
+  mutate(
+    BENE.z = (BENE - mean(BENE, na.rm=T))/(sd(BENE, na.rm=T))
+  )
+
+myVar &lt;- c(&quot;COHORT&quot;,&quot;COVID&quot;, &quot;AUTH&quot;, &quot;BENE&quot;,&quot;BENE.z&quot;,  &quot;AGIANX&quot;, &quot;AGIAVOID&quot;, &quot;DEPR&quot;, &quot;DEPR_DIAG&quot;, &quot;ANX&quot;, &quot;ANX_DIAG&quot;, &quot;AGI_SECURITY&quot;)
+
+subdat &lt;- mydata %&gt;%
+  dplyr::select(ID, COHORT, COVID, AUTH, BENE, BENE.z, AGIANX, AGIAVOID, DEPR, DEPR_DIAG, ANX, ANX_DIAG, AGI_SECURITY) 
+subdat$flag = 0
+i &lt;- 1
+for(i in 1:nrow(subdat)){
+  subdat$flag[i] = anyNA(subdat[i,-c(1:3)])
+}
+subdat &lt;- subdat %&gt;%
+  filter(flag == 0)
+
+
+subdat$Cohort = factor(subdat$COHORT, levels=1:2, labels=c(&quot;MH-COVID&quot;, &quot;ATG&quot;))</code></pre>
+<div id="approach-1---listwise-deletion" class="section level1">
+<h1>Approach 1 - Listwise Deletion</h1>
+<p>Missing data are listwise deleted - using all cases with complete data on all variables of interest.</p>
+<pre class="r"><code>GGally::ggpairs(
+  subdat,  columns = c(&quot;DEPR&quot;, &quot;ANX&quot;, &quot;AGIANX&quot;, &quot;AGIAVOID&quot;),
+  mapping = ggplot2::aes(colour=Cohort, alpha=0.75))</code></pre>
+<p><img src="figure/R3_atg_mental_health.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="cohort-1" class="section level2">
+<h2>Cohort 1</h2>
+<div id="depression-scores" class="section level3">
+<h3>Depression Scores</h3>
+<pre class="r"><code>cor.test(~DEPR + AGIANX, data=filter(subdat, COHORT==1))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  DEPR and AGIANX
+t = 4, df = 263, p-value = 2e-04
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.108 0.337
+sample estimates:
+  cor 
+0.225 </code></pre>
+<pre class="r"><code>cor.test(~DEPR + AGIAVOID, data=filter(subdat, COHORT==1))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  DEPR and AGIAVOID
+t = 4, df = 263, p-value = 1e-05
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.151 0.375
+sample estimates:
+  cor 
+0.266 </code></pre>
+</div>
+<div id="anxiety-scores" class="section level3">
+<h3>Anxiety Scores</h3>
+<pre class="r"><code>cor.test(~ANX + AGIANX, data=filter(subdat, COHORT==1))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  ANX and AGIANX
+t = 7, df = 263, p-value = 2e-10
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.271 0.478
+sample estimates:
+  cor 
+0.379 </code></pre>
+<pre class="r"><code>cor.test(~ANX + AGIAVOID, data=filter(subdat, COHORT==1))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  ANX and AGIAVOID
+t = 4, df = 263, p-value = 3e-05
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.136 0.361
+sample estimates:
+  cor 
+0.252 </code></pre>
+</div>
+</div>
+<div id="cohort-2" class="section level2">
+<h2>Cohort 2</h2>
+<div id="depression-scores-1" class="section level3">
+<h3>Depression Scores</h3>
+<pre class="r"><code>cor.test(~DEPR + AGIANX, data=filter(subdat, COHORT==2))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  DEPR and AGIANX
+t = 5, df = 136, p-value = 1e-05
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.207 0.499
+sample estimates:
+  cor 
+0.362 </code></pre>
+<pre class="r"><code>cor.test(~DEPR + AGIAVOID, data=filter(subdat, COHORT==2))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  DEPR and AGIAVOID
+t = 1, df = 136, p-value = 0.2
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.0586  0.2717
+sample estimates:
+ cor 
+0.11 </code></pre>
+</div>
+<div id="anxiety-scores-1" class="section level3">
+<h3>Anxiety Scores</h3>
+<pre class="r"><code>cor.test(~ANX + AGIANX, data=filter(subdat, COHORT==2))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  ANX and AGIANX
+t = 5, df = 136, p-value = 5e-07
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.264 0.542
+sample estimates:
+  cor 
+0.413 </code></pre>
+<pre class="r"><code>cor.test(~ANX + AGIAVOID, data=filter(subdat, COHORT==2))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  ANX and AGIAVOID
+t = -0.3, df = 136, p-value = 0.7
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.195  0.139
+sample estimates:
+    cor 
+-0.0286 </code></pre>
+</div>
+</div>
+</div>
+<div id="approach-2---single-complete-imputation" class="section level1">
+<h1>Approach 2 - Single Complete Imputation</h1>
+<p>A single complete dataset is used</p>
+<pre class="r"><code>GGally::ggpairs(
+  imp_dat,  columns = c(&quot;DEPR&quot;, &quot;ANX&quot;, &quot;AGIANX&quot;, &quot;AGIAVOID&quot;),
+  mapping = ggplot2::aes(colour=Cohort, alpha=0.75))</code></pre>
+<p><img src="figure/R3_atg_mental_health.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="cohort-1-1" class="section level2">
+<h2>Cohort 1</h2>
+<div id="depression-scores-2" class="section level3">
+<h3>Depression Scores</h3>
+<pre class="r"><code>cor.test(~DEPR + AGIANX, data=filter(imp_dat, COHORT==1))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  DEPR and AGIANX
+t = 4, df = 317, p-value = 3e-05
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.124 0.332
+sample estimates:
+  cor 
+0.231 </code></pre>
+<pre class="r"><code>cor.test(~DEPR + AGIAVOID, data=filter(imp_dat, COHORT==1))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  DEPR and AGIAVOID
+t = 7, df = 317, p-value = 3e-11
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.262 0.453
+sample estimates:
+  cor 
+0.361 </code></pre>
+</div>
+<div id="anxiety-scores-2" class="section level3">
+<h3>Anxiety Scores</h3>
+<pre class="r"><code>cor.test(~ANX + AGIANX, data=filter(imp_dat, COHORT==1))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  ANX and AGIANX
+t = 7, df = 317, p-value = 1e-10
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.251 0.444
+sample estimates:
+  cor 
+0.351 </code></pre>
+<pre class="r"><code>cor.test(~ANX + AGIAVOID, data=filter(imp_dat, COHORT==1))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  ANX and AGIAVOID
+t = 7, df = 317, p-value = 1e-11
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.269 0.459
+sample estimates:
+  cor 
+0.368 </code></pre>
+</div>
+</div>
+<div id="cohort-2-1" class="section level2">
+<h2>Cohort 2</h2>
+<div id="depression-scores-3" class="section level3">
+<h3>Depression Scores</h3>
+<pre class="r"><code>cor.test(~DEPR + AGIANX, data=filter(imp_dat, COHORT==2))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  DEPR and AGIANX
+t = 5, df = 137, p-value = 1e-05
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.206 0.497
+sample estimates:
+ cor 
+0.36 </code></pre>
+<pre class="r"><code>cor.test(~DEPR + AGIAVOID, data=filter(imp_dat, COHORT==2))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  DEPR and AGIAVOID
+t = 1, df = 137, p-value = 0.2
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.0668  0.2629
+sample estimates:
+  cor 
+0.101 </code></pre>
+</div>
+<div id="anxiety-scores-3" class="section level3">
+<h3>Anxiety Scores</h3>
+<pre class="r"><code>cor.test(~ANX + AGIANX, data=filter(imp_dat, COHORT==2))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  ANX and AGIANX
+t = 5, df = 137, p-value = 5e-07
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.263 0.541
+sample estimates:
+  cor 
+0.412 </code></pre>
+<pre class="r"><code>cor.test(~ANX + AGIAVOID, data=filter(imp_dat, COHORT==2))</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  ANX and AGIAVOID
+t = -0.4, df = 137, p-value = 0.7
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.200  0.132
+sample estimates:
+    cor 
+-0.0348 </code></pre>
+</div>
+</div>
+</div>
+<div id="approach-3---full-imputation-method" class="section level1">
+<h1>Approach 3 - Full Imputation Method</h1>
+<div id="cohort-1-2" class="section level2">
+<h2>Cohort 1</h2>
+<div id="depression-scores-4" class="section level3">
+<h3>Depression Scores</h3>
+<pre class="r"><code>c1 &lt;- with(
+  imp_dat_c1,
+  lm(scale(DEPR)~ scale(AGIANX))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+           term m  estimate    ubar        b       t dfcom    df      riv
+1   (Intercept) 5 -2.19e-17 0.00299 4.18e-32 0.00299   317 315.0 1.68e-29
+2 scale(AGIANX) 5  2.17e-01 0.00300 7.64e-04 0.00392   317  56.2 3.05e-01
+    lambda     fmi
+1 1.68e-29 0.00629
+2 2.34e-01 0.25961</code></pre>
+<pre class="r"><code>summary(D1(c1))</code></pre>
+<pre><code>
+Models:
+ model                     formula
+     1 scale(DEPR) ~ scale(AGIANX)
+     2             scale(DEPR) ~ 1
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value   riv
+ 1 ~~ 2        12   1   4   317  0.0257 0.305
+
+Number of imputations:  5   Method D1</code></pre>
+<pre class="r"><code>c1 &lt;- with(
+  imp_dat_c1,
+  lm(scale(DEPR)~ scale(AGIAVOID))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+             term m estimate    ubar        b       t dfcom     df      riv
+1     (Intercept) 5 2.47e-17 0.00286 2.42e-32 0.00286   317 314.99 1.01e-29
+2 scale(AGIAVOID) 5 2.93e-01 0.00287 7.14e-03 0.01143   317   6.53 2.99e+00
+    lambda     fmi
+1 1.01e-29 0.00629
+2 7.49e-01 0.80191</code></pre>
+<pre class="r"><code>summary(D1(c1))</code></pre>
+<pre><code>
+Models:
+ model                       formula
+     1 scale(DEPR) ~ scale(AGIAVOID)
+     2               scale(DEPR) ~ 1
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value  riv
+ 1 ~~ 2      7.49   1   4   317  0.0521 2.99
+
+Number of imputations:  5   Method D1</code></pre>
+</div>
+<div id="anxiety-scores-4" class="section level3">
+<h3>Anxiety Scores</h3>
+<pre class="r"><code>c1 &lt;- with(
+  imp_dat_c1,
+  lm(scale(DEPR)~ scale(AGIANX))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+           term m  estimate    ubar        b       t dfcom    df      riv
+1   (Intercept) 5 -2.19e-17 0.00299 4.18e-32 0.00299   317 315.0 1.68e-29
+2 scale(AGIANX) 5  2.17e-01 0.00300 7.64e-04 0.00392   317  56.2 3.05e-01
+    lambda     fmi
+1 1.68e-29 0.00629
+2 2.34e-01 0.25961</code></pre>
+<pre class="r"><code>summary(D1(c1))</code></pre>
+<pre><code>
+Models:
+ model                     formula
+     1 scale(DEPR) ~ scale(AGIANX)
+     2             scale(DEPR) ~ 1
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value   riv
+ 1 ~~ 2        12   1   4   317  0.0257 0.305
+
+Number of imputations:  5   Method D1</code></pre>
+<pre class="r"><code>c1 &lt;- with(
+  imp_dat_c1,
+  lm(scale(DEPR)~ scale(AGIAVOID))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+             term m estimate    ubar        b       t dfcom     df      riv
+1     (Intercept) 5 2.47e-17 0.00286 2.42e-32 0.00286   317 314.99 1.01e-29
+2 scale(AGIAVOID) 5 2.93e-01 0.00287 7.14e-03 0.01143   317   6.53 2.99e+00
+    lambda     fmi
+1 1.01e-29 0.00629
+2 7.49e-01 0.80191</code></pre>
+<pre class="r"><code>summary(D1(c1))</code></pre>
+<pre><code>
+Models:
+ model                       formula
+     1 scale(DEPR) ~ scale(AGIAVOID)
+     2               scale(DEPR) ~ 1
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value  riv
+ 1 ~~ 2      7.49   1   4   317  0.0521 2.99
+
+Number of imputations:  5   Method D1</code></pre>
+</div>
+</div>
+<div id="cohort-2-2" class="section level2">
+<h2>Cohort 2</h2>
+<div id="depression-scores-5" class="section level3">
+<h3>Depression Scores</h3>
+<pre class="r"><code>c1 &lt;- with(
+  imp_dat_c2,
+  lm(scale(DEPR)~ scale(AGIANX))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+           term m  estimate    ubar b       t dfcom  df riv lambda    fmi
+1   (Intercept) 5 -9.77e-17 0.00631 0 0.00631   137 135   0      0 0.0145
+2 scale(AGIANX) 5  3.60e-01 0.00635 0 0.00635   137 135   0      0 0.0145</code></pre>
+<pre class="r"><code>summary(D1(c1))</code></pre>
+<pre><code>
+Models:
+ model                     formula
+     1 scale(DEPR) ~ scale(AGIANX)
+     2             scale(DEPR) ~ 1
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value riv
+ 1 ~~ 2      20.4   1 NaN   137     NaN   0
+
+Number of imputations:  5   Method D1</code></pre>
+<pre class="r"><code>c1 &lt;- with(
+  imp_dat_c2,
+  lm(scale(DEPR)~ scale(AGIAVOID))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+             term m  estimate    ubar b       t dfcom  df riv lambda    fmi
+1     (Intercept) 5 -8.83e-17 0.00717 0 0.00717   137 135   0      0 0.0145
+2 scale(AGIAVOID) 5  1.01e-01 0.00723 0 0.00723   137 135   0      0 0.0145</code></pre>
+<pre class="r"><code>summary(D1(c1))</code></pre>
+<pre><code>
+Models:
+ model                       formula
+     1 scale(DEPR) ~ scale(AGIAVOID)
+     2               scale(DEPR) ~ 1
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value riv
+ 1 ~~ 2      1.41   1 NaN   137     NaN   0
+
+Number of imputations:  5   Method D1</code></pre>
+</div>
+<div id="anxiety-scores-5" class="section level3">
+<h3>Anxiety Scores</h3>
+<pre class="r"><code>c1 &lt;- with(
+  imp_dat_c2,
+  lm(scale(DEPR)~ scale(AGIANX))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+           term m  estimate    ubar b       t dfcom  df riv lambda    fmi
+1   (Intercept) 5 -9.77e-17 0.00631 0 0.00631   137 135   0      0 0.0145
+2 scale(AGIANX) 5  3.60e-01 0.00635 0 0.00635   137 135   0      0 0.0145</code></pre>
+<pre class="r"><code>summary(D1(c1))</code></pre>
+<pre><code>
+Models:
+ model                     formula
+     1 scale(DEPR) ~ scale(AGIANX)
+     2             scale(DEPR) ~ 1
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value riv
+ 1 ~~ 2      20.4   1 NaN   137     NaN   0
+
+Number of imputations:  5   Method D1</code></pre>
+<pre class="r"><code>c1 &lt;- with(
+  imp_dat_c2,
+  lm(scale(DEPR)~ scale(AGIAVOID))
+)
+pool(c1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+             term m  estimate    ubar b       t dfcom  df riv lambda    fmi
+1     (Intercept) 5 -8.83e-17 0.00717 0 0.00717   137 135   0      0 0.0145
+2 scale(AGIAVOID) 5  1.01e-01 0.00723 0 0.00723   137 135   0      0 0.0145</code></pre>
+<pre class="r"><code>summary(D1(c1))</code></pre>
+<pre><code>
+Models:
+ model                       formula
+     1 scale(DEPR) ~ scale(AGIAVOID)
+     2               scale(DEPR) ~ 1
+
+Comparisons:
+   test statistic df1 df2 dfcom p.value riv
+ 1 ~~ 2      1.41   1 NaN   137     NaN   0
+
+Number of imputations:  5   Method D1</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.5 (2021-03-31)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_United States.1252 
+[2] LC_CTYPE=English_United States.1252   
+[3] LC_MONETARY=English_United States.1252
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] mitools_2.4       mitml_0.4-1       naniar_0.6.0      miceadds_3.11-6  
+ [5] mice_3.13.0       car_3.0-10        carData_3.0-4     patchwork_1.1.1  
+ [9] psych_2.0.12      viridis_0.5.1     viridisLite_0.3.0 gridExtra_2.3    
+[13] xtable_1.8-4      kableExtra_1.3.4  GGally_2.1.1      MASS_7.3-53.1    
+[17] data.table_1.14.0 readxl_1.3.1      forcats_0.5.1     stringr_1.4.0    
+[21] dplyr_1.0.5       purrr_0.3.4       readr_1.4.0       tidyr_1.1.3      
+[25] tibble_3.1.0      ggplot2_3.3.3     tidyverse_1.3.0   workflowr_1.6.2  
+
+loaded via a namespace (and not attached):
+ [1] minqa_1.2.4        colorspace_2.0-0   ellipsis_0.3.1     rio_0.5.26        
+ [5] visdat_0.5.3       rprojroot_2.0.2    fs_1.5.0           rstudioapi_0.13   
+ [9] farver_2.1.0       fansi_0.4.2        lubridate_1.7.10   xml2_1.3.2        
+[13] splines_4.0.5      mnormt_2.0.2       knitr_1.31         jsonlite_1.7.2    
+[17] nloptr_1.2.2.2     broom_0.7.5        dbplyr_2.1.0       compiler_4.0.5    
+[21] httr_1.4.2         backports_1.2.1    assertthat_0.2.1   Matrix_1.3-2      
+[25] cli_2.3.1          later_1.1.0.1      htmltools_0.5.1.1  tools_4.0.5       
+[29] gtable_0.3.0       glue_1.4.2         Rcpp_1.0.7         cellranger_1.1.0  
+[33] jquerylib_0.1.3    vctrs_0.3.6        svglite_2.0.0      nlme_3.1-152      
+[37] xfun_0.21          ps_1.6.0           openxlsx_4.2.3     lme4_1.1-26       
+[41] rvest_1.0.0        lifecycle_1.0.0    statmod_1.4.35     pan_1.6           
+[45] scales_1.1.1       hms_1.0.0          promises_1.2.0.1   parallel_4.0.5    
+[49] RColorBrewer_1.1-2 yaml_2.2.1         curl_4.3           sass_0.3.1        
+[53] reshape_0.8.8      stringi_1.5.3      highr_0.8          boot_1.3-27       
+[57] zip_2.1.1          rlang_0.4.10       pkgconfig_2.0.3    systemfonts_1.0.1 
+[61] evaluate_0.14      lattice_0.20-41    labeling_0.4.2     tidyselect_1.1.0  
+[65] plyr_1.8.6         magrittr_2.0.1     R6_2.5.0           generics_0.1.0    
+[69] DBI_1.1.1          pillar_1.5.1       haven_2.3.1        foreign_0.8-81    
+[73] withr_2.4.1        survival_3.2-10    abind_1.4-5        modelr_0.1.8      
+[77] crayon_1.4.1       jomo_2.7-2         utf8_1.1.4         tmvnsim_1.0-2     
+[81] rmarkdown_2.7      grid_4.0.5         git2r_0.28.0       reprex_1.0.0      
+[85] digest_0.6.27      webshot_0.5.2      httpuv_1.5.5       munsell_0.5.0     
+[89] bslib_0.2.4       </code></pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

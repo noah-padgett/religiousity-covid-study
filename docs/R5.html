@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="R. Noah Padgett" />
+
+<meta name="date" content="2021-08-13" />
+
+<title>Research Question 5</title>
+
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">religiousity-covid-study</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Research Question 5</h1>
+<h3 class="subtitle">Relationship to God and Mental Health</h3>
+<h4 class="author">R. Noah Padgett</h4>
+<h4 class="date">2021-08-13</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-08-15
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>religiousity-covid-study/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210724code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210724)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210724code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210724)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstronga368c61"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> a368c61 </a>
+</p>
+</div>
+<div id="strongRepositoryversionstronga368c61" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version a368c61. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    data/Boccia et al - Attachment to God Style Relates to Religiosity Measures.docx
+    Ignored:    data/COVID19 Mental Health Data_forNoah.xlsx
+    Ignored:    data/LGedits_Attachment to God Style Relates to Religiosity Measures endnote[29].docx
+    Ignored:    data/MH & COVID updated.xlsx
+    Ignored:    data/Methods.docx
+    Ignored:    data/Rates of anxiety and depression in college students before and during the pandemic.docx
+    Ignored:    data/Religiousity_Covid_Data_2021_07_24.csv
+    Ignored:    data/Research Questions.txt
+    Ignored:    data/imp_dat.RData
+    Ignored:    data/~$COVID19 Mental Health Data_forNoah.xlsx
+    Ignored:    data/~$MH & COVID updated.xlsx
+
+Untracked files:
+    Untracked:  analysis/R0_Summary_Table.Rmd
+    Untracked:  analysis/R1_correlations.Rmd
+    Untracked:  analysis/R2_HADS.Rmd
+    Untracked:  analysis/R3_atg_mental_health.Rmd
+    Untracked:  analysis/R4.Rmd
+    Untracked:  analysis/R5.Rmd
+    Untracked:  analysis/data_summary_and_imputation.Rmd
+    Untracked:  code/load_packages.R
+    Untracked:  code/utility_functions.R
+    Untracked:  manuscript/
+
+Unstaged changes:
+    Modified:   .gitignore
+    Modified:   analysis/index.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<pre><code>Research Question 5:
+
+Does the relationship to God and mental health change if you have positive COVID test?</code></pre>
+<p>Read in data</p>
+<pre class="r"><code># Load imputed data
+load(&quot;data/imp_dat.RData&quot;)
+imp_dat_c1 &lt;- imputation[[1]]
+imp_dat_c2 &lt;- imputation[[2]]
+imp_dat_mids &lt;- rbind(imp_dat_c1, imp_dat_c2)
+
+mydata &lt;- readxl::read_xlsx(&quot;data/MH &amp; COVID updated.xlsx&quot;)
+
+mydata &lt;- mydata[,colnames(mydata) != &quot;filter_$&quot;]
+
+# recoding to correct for errors
+# recode all 0&#39;s for AUTH or BENE as NA
+mydata$AUTH[mydata$AUTH == 0] &lt;- NA
+mydata$BENE[mydata$BENE == 0] &lt;- NA
+
+mydata &lt;- mydata %&gt;%
+  group_by(COHORT) %&gt;%
+  mutate(
+    BENE.z = (BENE - mean(BENE, na.rm=T))/(sd(BENE, na.rm=T))
+  )
+
+mydata$Cohort = factor(mydata$COHORT, levels=1:2, labels=c(&quot;MH-COVID&quot;, &quot;ATG&quot;))
+
+myVar &lt;- c(&quot;COHORT&quot;,&quot;COVID&quot;, &quot;AUTH&quot;, &quot;BENE&quot;,&quot;BENE.z&quot;,  &quot;AGIANX&quot;, &quot;AGIAVOID&quot;, &quot;DEPR&quot;, &quot;DEPR_DIAG&quot;, &quot;ANX&quot;, &quot;ANX_DIAG&quot;, &quot;AGI_SECURITY&quot;)
+
+subdat &lt;- mydata %&gt;%
+  dplyr::select(ID, COHORT, COVID, AUTH, BENE, BENE.z, AGIANX, AGIAVOID, DEPR, DEPR_DIAG, ANX, ANX_DIAG, AGI_SECURITY) 
+subdat$flag = 0
+i &lt;- 1
+for(i in 1:nrow(subdat)){
+  subdat$flag[i] = anyNA(subdat[i,-c(1:3)])
+}
+subdat &lt;- subdat %&gt;%
+  filter(flag == 0)
+
+
+subdat$Cohort = factor(subdat$COHORT, levels=1:2, labels=c(&quot;MH-COVID&quot;, &quot;ATG&quot;))</code></pre>
+<div id="approach-1---listwise-deletion" class="section level1">
+<h1>Approach 1 - Listwise Deletion</h1>
+<pre class="r"><code>subdat &lt;- mydata %&gt;%
+  filter(Cohort == &quot;MH-COVID&quot;) %&gt;%
+  mutate(covid = ifelse(COVID == 2, 1, 0))
+subdat$covid[is.na(subdat$COVID)] = NA
+subdat %&gt;% count(COVID)</code></pre>
+<pre><code># A tibble: 3 x 3
+# Groups:   COHORT [1]
+  COHORT COVID     n
+   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+1      1     1    72
+2      1     2   215
+3      1    NA    32</code></pre>
+<pre class="r"><code>subdat %&gt;% count(covid)</code></pre>
+<pre><code># A tibble: 3 x 3
+# Groups:   COHORT [1]
+  COHORT covid     n
+   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+1      1     0    72
+2      1     1   215
+3      1    NA    32</code></pre>
+<pre class="r"><code>fit &lt;- lm(DEPR ~ scale(AGIANX) + scale(AGIAVOID) + scale(BENE) + scale(AUTH), data=subdat)
+summary(fit)</code></pre>
+<pre><code>
+Call:
+lm(formula = DEPR ~ scale(AGIANX) + scale(AGIAVOID) + scale(BENE) + 
+    scale(AUTH), data = subdat)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-8.285 -2.202 -0.269  2.120 10.674 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)       5.0519     0.1846   27.37  &lt; 2e-16 ***
+scale(AGIANX)     0.6995     0.1962    3.56  0.00043 ***
+scale(AGIAVOID)   0.3170     0.2324    1.36  0.17374    
+scale(BENE)      -0.7006     0.2482   -2.82  0.00513 ** 
+scale(AUTH)       0.0405     0.2125    0.19  0.84887    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 3 on 260 degrees of freedom
+  (54 observations deleted due to missingness)
+Multiple R-squared:  0.136, Adjusted R-squared:  0.123 
+F-statistic: 10.3 on 4 and 260 DF,  p-value: 1e-07</code></pre>
+<pre class="r"><code>fit &lt;- lm(DEPR ~ scale(AGIANX)*I(COVID==1) + scale(AGIAVOID)*I(COVID==1) + scale(BENE)*I(COVID==1) + scale(AUTH)*I(COVID==1), data=subdat)
+summary(fit)</code></pre>
+<pre><code>
+Call:
+lm(formula = DEPR ~ scale(AGIANX) * I(COVID == 1) + scale(AGIAVOID) * 
+    I(COVID == 1) + scale(BENE) * I(COVID == 1) + scale(AUTH) * 
+    I(COVID == 1), data = subdat)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-7.627 -2.183 -0.174  2.023 10.697 
+
+Coefficients:
+                                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                        5.09299    0.20862   24.41  &lt; 2e-16 ***
+scale(AGIANX)                      0.58996    0.21375    2.76   0.0062 ** 
+I(COVID == 1)TRUE                 -0.02333    0.42139   -0.06   0.9559    
+scale(AGIAVOID)                   -0.00478    0.25452   -0.02   0.9850    
+scale(BENE)                       -1.37433    0.29600   -4.64  5.5e-06 ***
+scale(AUTH)                       -0.19527    0.23707   -0.82   0.4109    
+scale(AGIANX):I(COVID == 1)TRUE    0.27206    0.48366    0.56   0.5743    
+I(COVID == 1)TRUE:scale(AGIAVOID)  1.21808    0.56876    2.14   0.0332 *  
+I(COVID == 1)TRUE:scale(BENE)      2.01823    0.53544    3.77   0.0002 ***
+I(COVID == 1)TRUE:scale(AUTH)      0.84534    0.50140    1.69   0.0930 .  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 2.93 on 255 degrees of freedom
+  (54 observations deleted due to missingness)
+Multiple R-squared:  0.197, Adjusted R-squared:  0.168 
+F-statistic: 6.94 on 9 and 255 DF,  p-value: 5.98e-09</code></pre>
+<pre class="r"><code>fit &lt;- lm(DEPR ~ scale(AGIANX)*I(COVID==1) + scale(AGIAVOID)*I(COVID==1) + scale(BENE)*I(COVID==1) + scale(AUTH)*I(COVID==1), data=imp_dat%&gt;%filter(Cohort==&quot;MH-COVID&quot;))
+summary(fit)</code></pre>
+<pre><code>
+Call:
+lm(formula = DEPR ~ scale(AGIANX) * I(COVID == 1) + scale(AGIAVOID) * 
+    I(COVID == 1) + scale(BENE) * I(COVID == 1) + scale(AUTH) * 
+    I(COVID == 1), data = imp_dat %&gt;% filter(Cohort == &quot;MH-COVID&quot;))
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-8.986 -2.273 -0.128  2.107 10.677 
+
+Coefficients:
+                                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                         5.7446     0.1967   29.20  &lt; 2e-16 ***
+scale(AGIANX)                       0.5297     0.1990    2.66  0.00818 ** 
+I(COVID == 1)TRUE                  -0.1334     0.3972   -0.34  0.73724    
+scale(AGIAVOID)                     0.5723     0.2260    2.53  0.01183 *  
+scale(BENE)                        -1.1799     0.2589   -4.56  7.5e-06 ***
+scale(AUTH)                         0.0521     0.2252    0.23  0.81726    
+scale(AGIANX):I(COVID == 1)TRUE     0.3364     0.4183    0.80  0.42195    
+I(COVID == 1)TRUE:scale(AGIAVOID)   0.6767     0.4937    1.37  0.17150    
+I(COVID == 1)TRUE:scale(BENE)       1.6746     0.4567    3.67  0.00029 ***
+I(COVID == 1)TRUE:scale(AUTH)       0.8492     0.4518    1.88  0.06114 .  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 3.04 on 309 degrees of freedom
+Multiple R-squared:  0.243, Adjusted R-squared:  0.221 
+F-statistic:   11 on 9 and 309 DF,  p-value: 6.33e-15</code></pre>
+<pre class="r"><code>fit1 &lt;- with(
+  imp_dat_c1, 
+  lm(DEPR ~ scale(AGIANX)*I(COVID==1) + scale(AGIAVOID)*I(COVID==1) + scale(BENE)*I(COVID==1) + scale(AUTH)*I(COVID==1))
+)
+pool(fit1)</code></pre>
+<pre><code>Class: mipo    m = 5 
+                                term m estimate   ubar      b      t dfcom
+1                        (Intercept) 5  5.34975 0.0366 0.1261 0.1879   309
+2                      scale(AGIANX) 5  0.53546 0.0370 0.0170 0.0573   309
+3                  I(COVID == 1)TRUE 5 -0.03803 0.1629 0.0839 0.2635   309
+4                    scale(AGIAVOID) 5  0.24061 0.0522 0.0457 0.1071   309
+5                        scale(BENE) 5 -1.17844 0.0675 0.0483 0.1254   309
+6                        scale(AUTH) 5 -0.00969 0.0493 0.0279 0.0829   309
+7    scale(AGIANX):I(COVID == 1)TRUE 5  0.27325 0.1966 0.1060 0.3238   309
+8  I(COVID == 1)TRUE:scale(AGIAVOID) 5  1.02944 0.2883 0.1024 0.4111   309
+9      I(COVID == 1)TRUE:scale(BENE) 5  1.77549 0.2694 0.0713 0.3549   309
+10     I(COVID == 1)TRUE:scale(AUTH) 5  0.70504 0.2414 0.0428 0.2928   309
+      df   riv lambda   fmi
+1   5.59 4.132  0.805 0.850
+2  27.31 0.551  0.355 0.398
+3  23.96 0.618  0.382 0.428
+4  13.85 1.049  0.512 0.570
+5  16.83 0.859  0.462 0.516
+6  21.54 0.680  0.405 0.453
+7  22.75 0.647  0.393 0.440
+8  37.08 0.426  0.299 0.334
+9  53.18 0.317  0.241 0.268
+10 85.85 0.213  0.175 0.194</code></pre>
+<pre class="r"><code>fit2 &lt;- with(
+  imp_dat_c1, 
+  lm(DEPR ~ scale(AGIANX) + scale(AGIAVOID) + scale(BENE) + scale(AUTH))
+)
+pool(fit2)</code></pre>
+<pre><code>Class: mipo    m = 5 
+             term m estimate   ubar       b      t dfcom    df   riv lambda
+1     (Intercept) 5    5.315 0.0287 0.09595 0.1439   314  5.68 4.005  0.800
+2   scale(AGIANX) 5    0.655 0.0305 0.00695 0.0389   314 64.21 0.273  0.214
+3 scale(AGIAVOID) 5    0.463 0.0436 0.03527 0.0859   314 14.93 0.971  0.493
+4     scale(BENE) 5   -0.690 0.0497 0.03561 0.0924   314 16.83 0.860  0.462
+5     scale(AUTH) 5    0.163 0.0396 0.03893 0.0863   314 12.46 1.180  0.541
+    fmi
+1 0.846
+2 0.238
+3 0.549
+4 0.517
+5 0.601</code></pre>
+<pre class="r"><code>summary(D1(fit1, fit2))</code></pre>
+<pre><code>
+Models:
+ model
+     1
+     2
+                                                                                                                            formula
+ DEPR ~ scale(AGIANX) * I(COVID == 1) + scale(AGIAVOID) * I(COVID == 1) + scale(BENE) * I(COVID == 1) + scale(AUTH) * I(COVID == 1)
+                                                                 DEPR ~ scale(AGIANX) + scale(AGIAVOID) + scale(BENE) + scale(AUTH)
+
+Comparisons:
+   test statistic df1  df2 dfcom p.value   riv
+ 1 ~~ 2      2.07   5 90.6   309  0.0769 0.485
+
+Number of imputations:  5   Method D1</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.5 (2021-03-31)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_United States.1252 
+[2] LC_CTYPE=English_United States.1252   
+[3] LC_MONETARY=English_United States.1252
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] mitools_2.4       mitml_0.4-1       naniar_0.6.0      miceadds_3.11-6  
+ [5] mice_3.13.0       car_3.0-10        carData_3.0-4     patchwork_1.1.1  
+ [9] psych_2.0.12      viridis_0.5.1     viridisLite_0.3.0 gridExtra_2.3    
+[13] xtable_1.8-4      kableExtra_1.3.4  GGally_2.1.1      MASS_7.3-53.1    
+[17] data.table_1.14.0 readxl_1.3.1      forcats_0.5.1     stringr_1.4.0    
+[21] dplyr_1.0.5       purrr_0.3.4       readr_1.4.0       tidyr_1.1.3      
+[25] tibble_3.1.0      ggplot2_3.3.3     tidyverse_1.3.0   workflowr_1.6.2  
+
+loaded via a namespace (and not attached):
+ [1] minqa_1.2.4        colorspace_2.0-0   ellipsis_0.3.1     rio_0.5.26        
+ [5] visdat_0.5.3       rprojroot_2.0.2    fs_1.5.0           rstudioapi_0.13   
+ [9] fansi_0.4.2        lubridate_1.7.10   xml2_1.3.2         splines_4.0.5     
+[13] mnormt_2.0.2       knitr_1.31         jsonlite_1.7.2     nloptr_1.2.2.2    
+[17] broom_0.7.5        dbplyr_2.1.0       compiler_4.0.5     httr_1.4.2        
+[21] backports_1.2.1    assertthat_0.2.1   Matrix_1.3-2       cli_2.3.1         
+[25] later_1.1.0.1      htmltools_0.5.1.1  tools_4.0.5        gtable_0.3.0      
+[29] glue_1.4.2         Rcpp_1.0.7         cellranger_1.1.0   jquerylib_0.1.3   
+[33] vctrs_0.3.6        svglite_2.0.0      nlme_3.1-152       xfun_0.21         
+[37] ps_1.6.0           openxlsx_4.2.3     lme4_1.1-26        rvest_1.0.0       
+[41] lifecycle_1.0.0    statmod_1.4.35     pan_1.6            scales_1.1.1      
+[45] hms_1.0.0          promises_1.2.0.1   parallel_4.0.5     RColorBrewer_1.1-2
+[49] yaml_2.2.1         curl_4.3           sass_0.3.1         reshape_0.8.8     
+[53] stringi_1.5.3      boot_1.3-27        zip_2.1.1          rlang_0.4.10      
+[57] pkgconfig_2.0.3    systemfonts_1.0.1  evaluate_0.14      lattice_0.20-41   
+[61] tidyselect_1.1.0   plyr_1.8.6         magrittr_2.0.1     R6_2.5.0          
+[65] generics_0.1.0     DBI_1.1.1          pillar_1.5.1       haven_2.3.1       
+[69] foreign_0.8-81     withr_2.4.1        survival_3.2-10    abind_1.4-5       
+[73] modelr_0.1.8       crayon_1.4.1       jomo_2.7-2         utf8_1.1.4        
+[77] tmvnsim_1.0-2      rmarkdown_2.7      grid_4.0.5         git2r_0.28.0      
+[81] reprex_1.0.0       digest_0.6.27      webshot_0.5.2      httpuv_1.5.5      
+[85] munsell_0.5.0      bslib_0.2.4       </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

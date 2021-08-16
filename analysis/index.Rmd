@@ -9,3 +9,21 @@ editor_options:
 ---
 
 Welcome to my research website.
+
+* [Summary Tables](R0_Summary_Table.html)
+
+* [Data Summary for Missingness Imputation](data_summary_and_imputation.html)
+
+## Research Questions
+
+* [R1 - Correlations](R1_correlations.html)
+
+* [R2 - Depression and Anxiety Differences](R2_HADS.html)
+
+* [R3 - AtG and Mental Health](R3_atg_mental_health.html)
+
+* [R4 - Mental Health Attachment Style](R4.html)
+
+* [R5 - Stuff](R5.html)
+
+

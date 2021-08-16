@@ -1,0 +1,239 @@
+---
+title: "Research Question 2"
+subtitle: "Comparison of Depression and Anxiety Scores" 
+author: "R. Noah Padgett"
+date: "2021-08-13"
+output: html_document
+---
+
+```
+Research Question 2:
+
+What is the difference in HADS scores (continuous/ordinal?) for Depression and Anxiety between cohort 1 and 2?
+```
+
+
+```{r setup, include=FALSE, message=F, error=F, warning=F}
+
+source("code/load_packages.R")
+source("code/utility_functions.R")
+options(digits=3)
+```
+
+Read in data
+
+```{r read-data}
+# Load imputed data
+load("data/imp_dat.RData")
+imp_dat_c1 <- imputation[[1]]
+imp_dat_c2 <- imputation[[2]]
+imp_dat_mids <- rbind(imp_dat_c1, imp_dat_c2)
+
+mydata <- readxl::read_xlsx("data/MH & COVID updated.xlsx")
+
+mydata <- mydata[,colnames(mydata) != "filter_$"]
+
+# recoding to correct for errors
+# recode all 0's for AUTH or BENE as NA
+mydata$AUTH[mydata$AUTH == 0] <- NA
+mydata$BENE[mydata$BENE == 0] <- NA
+
+mydata <- mydata %>%
+  group_by(COHORT) %>%
+  mutate(
+    BENE.z = (BENE - mean(BENE, na.rm=T))/(sd(BENE, na.rm=T))
+  )
+
+myVar <- c("COHORT","COVID", "AUTH", "BENE","BENE.z",  "AGIANX", "AGIAVOID", "DEPR", "DEPR_DIAG", "ANX", "ANX_DIAG", "AGI_SECURITY")
+
+subdat <- mydata %>%
+  dplyr::select(ID, COHORT, COVID, AUTH, BENE, BENE.z, AGIANX, AGIAVOID, DEPR, DEPR_DIAG, ANX, ANX_DIAG, AGI_SECURITY) 
+subdat$flag = 0
+i <- 1
+for(i in 1:nrow(subdat)){
+  subdat$flag[i] = anyNA(subdat[i,-c(1:3)])
+}
+subdat <- subdat %>%
+  filter(flag == 0)
+
+
+subdat$Cohort = factor(subdat$COHORT, levels=1:2, labels=c("MH-COVID", "ATG"))
+
+
+```
+
+
+# Publicaiton Plots
+
+```{r}
+
+subdat <- subdat %>%
+  mutate(
+    DEPR_DIAG = factor(DEPR_DIAG, levels=1:4,
+                       labels = c("Non-Case", "Mild", "Moderate", "Severe")),
+    ANX_DIAG = factor(ANX_DIAG, levels=1:4,
+                       labels = c("Non-Case", "Mild", "Moderate", "Severe"))
+  )
+
+propsPr <- subdat %>%
+  group_by(COHORT) %>%
+  mutate(Ng=n()) %>%
+  ungroup() %>%
+  group_by(DEPR_DIAG, COHORT) %>%
+  summarise(N=n(),
+            p=N/Ng) %>%
+  distinct()
+  
+
+
+p1 <- ggplot(subdat, aes(x=DEPR, color=Cohort, fill=Cohort))+
+  geom_density(alpha=0.5)+
+  scale_fill_grey()+
+  scale_color_grey()+
+  geom_vline(xintercept = c(7,10,14)) +
+  lims(x=c(0,21), y=c(0, 0.25))+
+  annotate("text", x=3,y=0.2, label="Non-Case")+
+    annotate("text",x=3, y=0.18, label=paste0(round2(propsPr[1,4]*100,0), "% / ", round2(propsPr[2,4]*100,0),"%"))+
+  annotate("text", x=8.5,y=0.2, label="Mild")+
+    annotate("text",x=8.5, y=0.18, label=paste0(round2(propsPr[3,4]*100,0), "% / ", round2(propsPr[4,4]*100,0),"%"))+
+  annotate("text", x=12,y=0.2, label="Moderate")+
+    annotate("text",x=12, y=0.18, label=paste0(round2(propsPr[5,4]*100,0), "% / ", round2(propsPr[6,4]*100,0),"%"))+
+  annotate("text", x=17,y=0.2, label="Severe")+
+    annotate("text",x=17, y=0.18, label=paste0(round2(propsPr[7,4]*100,0), "% / 0%"))+
+  labs(x="Depression Scores", y=NULL)+
+  theme_classic()+
+  theme(
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y= element_blank(),
+    axis.line.y = element_blank()
+  )
+
+propsPr <- subdat %>%
+  group_by(COHORT) %>%
+  mutate(Ng=n()) %>%
+  ungroup() %>%
+  group_by(ANX_DIAG, COHORT) %>%
+  summarise(N=n(),
+            p=N/Ng) %>%
+  distinct()
+p2 <- ggplot(subdat, aes(x=ANX, color=Cohort, fill=Cohort))+
+  geom_density(alpha=0.5)+
+  scale_fill_grey()+
+  scale_color_grey()+
+  geom_vline(xintercept = c(7,10,14)) +
+  lims(x=c(0,21), y=c(0, 0.25))+
+  annotate("text", x=3,y=0.2, label="Non-Case")+
+    annotate("text",x=3, y=0.18, label=paste0(round2(propsPr[1,4]*100,0), "% / ", round2(propsPr[2,4]*100,0),"%"))+
+  annotate("text", x=8.5,y=0.2, label="Mild")+
+    annotate("text",x=8.5, y=0.18, label=paste0(round2(propsPr[3,4]*100,0), "% / ", round2(propsPr[4,4]*100,0),"%"))+
+  annotate("text", x=12,y=0.2, label="Moderate")+
+    annotate("text",x=12, y=0.18, label=paste0(round2(propsPr[5,4]*100,0), "% / ", round2(propsPr[6,4]*100,0),"%"))+
+  annotate("text", x=17,y=0.2, label="Severe")+
+    annotate("text",x=17, y=0.18, label=paste0(round2(propsPr[7,4]*100,0), "% / ",round2(propsPr[8,4]*100,0),"%"))+
+  labs(x="Anxiety Scores", y=NULL)+
+  theme_classic()+
+  theme(
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y= element_blank(),
+    axis.line.y = element_blank()
+  )
+p <- p1 + p2 + plot_annotation(tag_levels="A")
+p
+ggsave(filename = "manuscript/HADS_scores.png", p, width=12, height=4, units="in")
+ggsave(filename = "manuscript/HADS_scores.pdf", p, width=12, height=4, units="in")
+```
+
+
+# Approach 1 - Listwise Deletion
+
+Missing data are listwise deleted - using all cases with complete data on all variables of interest.
+
+## Depression Scores
+
+```{r}
+
+t.test(DEPR ~ Cohort, data=subdat)
+psych::cohen.d(subdat$DEPR, subdat$Cohort)
+
+subdat %>%
+  group_by(Cohort) %>%
+  summarise(
+    ng=n(),
+    M = mean(DEPR),
+    SD = sd(DEPR),
+    se = SD/sqrt(ng)
+  )
+
+```
+
+
+## Anxiety Scores
+
+```{r}
+
+t.test(ANX ~ Cohort, data=subdat)
+psych::cohen.d(subdat$ANX, subdat$Cohort)
+
+subdat %>%
+  group_by(Cohort) %>%
+  summarise(
+    ng=n(),
+    M = mean(ANX),
+    SD = sd(ANX),
+    se = SD/sqrt(ng)
+  )
+
+```
+
+# Approach 2 - Complete Case
+
+## Depression Scores
+
+```{r}
+
+t.test(DEPR ~ Cohort, data=imp_dat)
+psych::cohen.d(imp_dat$DEPR, imp_dat$Cohort)
+
+```
+
+## Anxiety Scores
+
+```{r}
+
+t.test(ANX ~ Cohort, data=imp_dat)
+psych::cohen.d(imp_dat$ANX, imp_dat$Cohort)
+
+```
+
+
+# Approach 3 - MI
+
+## Depression Scores
+
+```{r}
+
+c1 <- with(
+  imp_dat_mids,
+  lm(DEPR ~ Cohort)
+)
+pool(c1)
+summary(D1(c1))
+
+```
+
+## Anxiety Scores
+
+```{r}
+
+c1 <- with(
+  imp_dat_mids,
+  lm(ANX ~ Cohort)
+)
+pool(c1)
+summary(D1(c1))
+
+```

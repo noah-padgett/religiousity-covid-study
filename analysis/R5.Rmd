@@ -1,0 +1,99 @@
+---
+title: "Research Question 5"
+subtitle: "Relationship to God and Mental Health" 
+author: "R. Noah Padgett"
+date: "2021-08-13"
+output: html_document
+---
+
+```
+Research Question 5:
+
+Does the relationship to God and mental health change if you have positive COVID test?
+```
+
+```{r setup, include=FALSE, message=F, error=F, warning=F}
+
+source("code/load_packages.R")
+options(digits=3)
+```
+
+Read in data
+
+```{r read-data}
+# Load imputed data
+load("data/imp_dat.RData")
+imp_dat_c1 <- imputation[[1]]
+imp_dat_c2 <- imputation[[2]]
+imp_dat_mids <- rbind(imp_dat_c1, imp_dat_c2)
+
+mydata <- readxl::read_xlsx("data/MH & COVID updated.xlsx")
+
+mydata <- mydata[,colnames(mydata) != "filter_$"]
+
+# recoding to correct for errors
+# recode all 0's for AUTH or BENE as NA
+mydata$AUTH[mydata$AUTH == 0] <- NA
+mydata$BENE[mydata$BENE == 0] <- NA
+
+mydata <- mydata %>%
+  group_by(COHORT) %>%
+  mutate(
+    BENE.z = (BENE - mean(BENE, na.rm=T))/(sd(BENE, na.rm=T))
+  )
+
+mydata$Cohort = factor(mydata$COHORT, levels=1:2, labels=c("MH-COVID", "ATG"))
+
+myVar <- c("COHORT","COVID", "AUTH", "BENE","BENE.z",  "AGIANX", "AGIAVOID", "DEPR", "DEPR_DIAG", "ANX", "ANX_DIAG", "AGI_SECURITY")
+
+subdat <- mydata %>%
+  dplyr::select(ID, COHORT, COVID, AUTH, BENE, BENE.z, AGIANX, AGIAVOID, DEPR, DEPR_DIAG, ANX, ANX_DIAG, AGI_SECURITY) 
+subdat$flag = 0
+i <- 1
+for(i in 1:nrow(subdat)){
+  subdat$flag[i] = anyNA(subdat[i,-c(1:3)])
+}
+subdat <- subdat %>%
+  filter(flag == 0)
+
+
+subdat$Cohort = factor(subdat$COHORT, levels=1:2, labels=c("MH-COVID", "ATG"))
+
+
+```
+
+# Approach 1 - Listwise Deletion
+
+```{r}
+
+subdat <- mydata %>%
+  filter(Cohort == "MH-COVID") %>%
+  mutate(covid = ifelse(COVID == 2, 1, 0))
+subdat$covid[is.na(subdat$COVID)] = NA
+subdat %>% count(COVID)
+subdat %>% count(covid)
+
+fit <- lm(DEPR ~ scale(AGIANX) + scale(AGIAVOID) + scale(BENE) + scale(AUTH), data=subdat)
+summary(fit)
+
+
+fit <- lm(DEPR ~ scale(AGIANX)*I(COVID==1) + scale(AGIAVOID)*I(COVID==1) + scale(BENE)*I(COVID==1) + scale(AUTH)*I(COVID==1), data=subdat)
+summary(fit)
+
+fit <- lm(DEPR ~ scale(AGIANX)*I(COVID==1) + scale(AGIAVOID)*I(COVID==1) + scale(BENE)*I(COVID==1) + scale(AUTH)*I(COVID==1), data=imp_dat%>%filter(Cohort=="MH-COVID"))
+summary(fit)
+
+fit1 <- with(
+  imp_dat_c1, 
+  lm(DEPR ~ scale(AGIANX)*I(COVID==1) + scale(AGIAVOID)*I(COVID==1) + scale(BENE)*I(COVID==1) + scale(AUTH)*I(COVID==1))
+)
+pool(fit1)
+fit2 <- with(
+  imp_dat_c1, 
+  lm(DEPR ~ scale(AGIANX) + scale(AGIAVOID) + scale(BENE) + scale(AUTH))
+)
+pool(fit2)
+summary(D1(fit1, fit2))
+
+```
+
